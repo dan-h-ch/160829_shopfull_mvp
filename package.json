@@ -10,7 +10,8 @@
     "jquery": "^3.1.0",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "node": "^6.2.2"
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",
