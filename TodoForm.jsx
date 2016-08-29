@@ -5,7 +5,7 @@ class TodoForm extends React.Component {
     this.state = {
       submitName: "newItem",
       submitQuant: 1,
-      submitCost: 0.99
+      submitCost: 1.99
     }
   }
 
