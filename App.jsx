@@ -5,6 +5,14 @@ class App extends React.Component {
     this.state = {
       masterList: [{name: "chocolate", quantity: 2, cost: 3.99}]
     }
+
+    this.updateList = (newItem) => {
+      console.log(newItem)
+      var newMasterList = this.state.masterList.concat([newItem])
+      this.setState({
+        masterList: newMasterList
+      })
+    }
   }
 
 
@@ -12,7 +20,7 @@ class App extends React.Component {
     return (
       <div>
         <div>Nav bar here</div>
-        <div>Entry form here</div>
+        <TodoForm todoList={this.state.masterList} updateList={this.updateList}/>
         <TodoList todoList={this.state.masterList}/>
       </div>
     )
