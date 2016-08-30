@@ -25,4 +25,32 @@ class App extends React.Component {
       </div>
     )
   }
+
+  componentDidMount() {
+    console.log('loading up')
+    fetchData({}, function(data) {
+      this.setState({
+        masterList: data
+      })
+    }.bind(this))
+  }
+}
+
+var fetchData = (options, callback) => {
+  console.log("sendingrequest")
+  $.ajax({
+    type: "GET",
+    url: "/items",
+    contentType: "application/json",
+    success: function(data) {
+      callback(data)
+      // console.log(this)
+      // this.setState({
+      //   masterList: data
+      // })
+    },
+    error: function(error) {
+      console.log("err: ", error)
+    }
+  })
 }
