@@ -1,4 +1,4 @@
-var app = require('./server.js');
+var app = require('./server/server.js');
 var ReactDOM = require("react-dom")
 
 var port = process.env.PORT || 4568;
