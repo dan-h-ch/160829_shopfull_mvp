@@ -12,7 +12,7 @@ class TodoForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault()
     var preparedSubmit = {
-      name: this.state.submitName,
+      itemname: this.state.submitName,
       quantity: this.state.submitQuant,
       cost: this.state.submitCost
     }

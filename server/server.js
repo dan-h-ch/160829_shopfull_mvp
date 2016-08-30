@@ -21,26 +21,24 @@ app.listen(port)
 
 // WOW THIS IS UGLY!!!!
 app.get('/', function(req, res) {
-  console.log(req.url)
   res.sendFile(path.join(__dirname + "/.." + req.url))
 });
 
 app.get('/compiled/*', function(req, res) {
-  console.log(req.url)
   res.sendFile(path.join(__dirname + "/.." + req.url))
 });
 
 app.get('/node_modules/*', function(req, res) {
-  console.log(req.url)
   res.sendFile(path.join(__dirname + "/.." + req.url))
 });
 
 app.get('/items', function(req, res) {
-  console.log("got request")
   db.knex('items').select()
   .then(function(data) {
-    console.log("sending reply")
-    console.log(data)
     res.send(data)
   })
 })
+
+// app.post('/items', function(req, res) {
+//   new Item()
+// })

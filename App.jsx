@@ -7,12 +7,16 @@ class App extends React.Component {
     }
 
     this.updateList = (newItem) => {
-      console.log(newItem)
       var newMasterList = this.state.masterList.concat([newItem])
       this.setState({
         masterList: newMasterList
       })
     }
+
+    this.deleteItem = (item) => {
+      cnsole.log(item)
+    }
+
   }
 
 
@@ -52,5 +56,15 @@ var fetchData = (options, callback) => {
     error: function(error) {
       console.log("err: ", error)
     }
+  })
+}
+
+var sendData = (options, callback) => {
+  console.log("postingdata")
+  $.ajax({
+    type: "POST",
+    url: "/items",
+    contentType: "application/json",
+
   })
 }
