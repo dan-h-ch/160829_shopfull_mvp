@@ -1,1 +1,1 @@
-web: node compiled/index.js
+web: node server/server.js
