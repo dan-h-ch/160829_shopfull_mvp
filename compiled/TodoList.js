@@ -24,36 +24,44 @@ var TodoList = function (_React$Component) {
         "table",
         null,
         React.createElement(
-          "tr",
+          "thead",
           null,
           React.createElement(
-            "th",
+            "tr",
             null,
-            "Shopping Item"
-          ),
-          React.createElement(
-            "th",
-            null,
-            "Qty"
-          ),
-          React.createElement(
-            "th",
-            null,
-            "Cost/Unit"
-          ),
-          React.createElement(
-            "th",
-            null,
-            "Total Cost"
+            React.createElement(
+              "th",
+              null,
+              "Shopping Item"
+            ),
+            React.createElement(
+              "th",
+              null,
+              "Qty"
+            ),
+            React.createElement(
+              "th",
+              null,
+              "Cost/Unit"
+            ),
+            React.createElement(
+              "th",
+              null,
+              "Total Cost"
+            )
           )
         ),
-        this.props.todoList.map(function (item) {
-          return React.createElement(TodoListItem, { todoListItem: item });
-        })
+        React.createElement(
+          "tbody",
+          null,
+          this.props.todoList.map(function (item) {
+            return React.createElement(TodoListItem, { todoListItem: item });
+          })
+        )
       );
     }
   }]);
 
   return TodoList;
 }(React.Component);
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL1RvZG9MaXN0LmpzeCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7O0lBQU0sUTs7O0FBQ0osb0JBQVksS0FBWixFQUFtQjtBQUFBOztBQUFBLCtHQUNYLEtBRFc7QUFFbEI7Ozs7NkJBR1E7QUFDUCxhQUNFO0FBQUE7QUFBQTtBQUNFO0FBQUE7QUFBQTtBQUNFO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FERjtBQUVFO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FGRjtBQUdFO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FIRjtBQUlFO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFKRixTQURGO0FBT0csYUFBSyxLQUFMLENBQVcsUUFBWCxDQUFvQixHQUFwQixDQUF3QixVQUFDLElBQUQ7QUFBQSxpQkFBVSxvQkFBQyxZQUFELElBQWMsY0FBYyxJQUE1QixHQUFWO0FBQUEsU0FBeEI7QUFQSCxPQURGO0FBV0Q7Ozs7RUFsQm9CLE1BQU0sUyIsImZpbGUiOiJUb2RvTGlzdC5qcyIsInNvdXJjZXNDb250ZW50IjpbImNsYXNzIFRvZG9MaXN0IGV4dGVuZHMgUmVhY3QuQ29tcG9uZW50IHtcbiAgY29uc3RydWN0b3IocHJvcHMpIHtcbiAgICBzdXBlcihwcm9wcylcbiAgfVxuXG5cbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8dGFibGU+XG4gICAgICAgIDx0cj5cbiAgICAgICAgICA8dGg+U2hvcHBpbmcgSXRlbTwvdGg+XG4gICAgICAgICAgPHRoPlF0eTwvdGg+XG4gICAgICAgICAgPHRoPkNvc3QvVW5pdDwvdGg+XG4gICAgICAgICAgPHRoPlRvdGFsIENvc3Q8L3RoPlxuICAgICAgICA8L3RyPlxuICAgICAgICB7dGhpcy5wcm9wcy50b2RvTGlzdC5tYXAoKGl0ZW0pID0+IDxUb2RvTGlzdEl0ZW0gdG9kb0xpc3RJdGVtPXtpdGVtfSAvPil9XG4gICAgICA8L3RhYmxlPlxuICAgIClcbiAgfVxufVxuIl19
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL1RvZG9MaXN0LmpzeCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7O0lBQU0sUTs7O0FBQ0osb0JBQVksS0FBWixFQUFtQjtBQUFBOztBQUFBLCtHQUNYLEtBRFc7QUFFbEI7Ozs7NkJBR1E7QUFDUCxhQUNFO0FBQUE7QUFBQTtBQUNFO0FBQUE7QUFBQTtBQUNFO0FBQUE7QUFBQTtBQUNFO0FBQUE7QUFBQTtBQUFBO0FBQUEsYUFERjtBQUVFO0FBQUE7QUFBQTtBQUFBO0FBQUEsYUFGRjtBQUdFO0FBQUE7QUFBQTtBQUFBO0FBQUEsYUFIRjtBQUlFO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFKRjtBQURGLFNBREY7QUFTSTtBQUFBO0FBQUE7QUFDRCxlQUFLLEtBQUwsQ0FBVyxRQUFYLENBQW9CLEdBQXBCLENBQXdCLFVBQUMsSUFBRDtBQUFBLG1CQUFVLG9CQUFDLFlBQUQsSUFBYyxjQUFjLElBQTVCLEdBQVY7QUFBQSxXQUF4QjtBQURDO0FBVEosT0FERjtBQWVEOzs7O0VBdEJvQixNQUFNLFMiLCJmaWxlIjoiVG9kb0xpc3QuanMiLCJzb3VyY2VzQ29udGVudCI6WyJjbGFzcyBUb2RvTGlzdCBleHRlbmRzIFJlYWN0LkNvbXBvbmVudCB7XG4gIGNvbnN0cnVjdG9yKHByb3BzKSB7XG4gICAgc3VwZXIocHJvcHMpXG4gIH1cblxuXG4gIHJlbmRlcigpIHtcbiAgICByZXR1cm4gKFxuICAgICAgPHRhYmxlPlxuICAgICAgICA8dGhlYWQ+XG4gICAgICAgICAgPHRyPlxuICAgICAgICAgICAgPHRoPlNob3BwaW5nIEl0ZW08L3RoPlxuICAgICAgICAgICAgPHRoPlF0eTwvdGg+XG4gICAgICAgICAgICA8dGg+Q29zdC9Vbml0PC90aD5cbiAgICAgICAgICAgIDx0aD5Ub3RhbCBDb3N0PC90aD5cbiAgICAgICAgICA8L3RyPlxuICAgICAgICA8L3RoZWFkPlxuICAgICAgICAgIDx0Ym9keT5cbiAgICAgICAge3RoaXMucHJvcHMudG9kb0xpc3QubWFwKChpdGVtKSA9PiA8VG9kb0xpc3RJdGVtIHRvZG9MaXN0SXRlbT17aXRlbX0gLz4pfVxuICAgICAgICAgIDwvdGJvZHk+XG4gICAgICA8L3RhYmxlPlxuICAgIClcbiAgfVxufVxuIl19
