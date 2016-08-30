@@ -3,7 +3,7 @@ class App extends React.Component {
     super(props)
 
     this.state = {
-      masterList: [{name: "chocolate", quantity: 2, cost: 3.99}]
+      masterList: []
     }
 
     this.updateList = (newItem) => {
@@ -14,7 +14,22 @@ class App extends React.Component {
     }
 
     this.deleteItem = (item) => {
-      cnsole.log(item)
+      var that = this
+      $.ajax({
+        type: "DELETE",
+        url: "/items",
+        contentType: "application/json",
+        data: JSON.stringify(item),
+        success: function(data) {
+          console.log(data)
+          that.setState({
+            masterList: data
+          })
+        },
+        error: function(err) {
+          console.log("err: ", err)
+        }
+      })
     }
 
   }
@@ -25,13 +40,12 @@ class App extends React.Component {
       <div>
         <div>Nav bar here</div>
         <TodoForm todoList={this.state.masterList} updateList={this.updateList}/>
-        <TodoList todoList={this.state.masterList}/>
+        <TodoList todoList={this.state.masterList} deleteItem={this.deleteItem}/>
       </div>
     )
   }
 
   componentDidMount() {
-    console.log('loading up')
     fetchData({}, function(data) {
       this.setState({
         masterList: data
@@ -41,7 +55,6 @@ class App extends React.Component {
 }
 
 var fetchData = (options, callback) => {
-  console.log("sendingrequest")
   $.ajax({
     type: "GET",
     url: "/items",
@@ -53,8 +66,8 @@ var fetchData = (options, callback) => {
       //   masterList: data
       // })
     },
-    error: function(error) {
-      console.log("err: ", error)
+    error: function(err) {
+      console.log("err: ", err)
     }
   })
 }

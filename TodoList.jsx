@@ -16,7 +16,7 @@ class TodoList extends React.Component {
           </tr>
         </thead>
           <tbody>
-        {this.props.todoList.map((item) => <TodoListItem todoListItem={item} />)}
+        {this.props.todoList.map((item) => <TodoListItem todoListItem={item} deleteItem={this.props.deleteItem}/>)}
           </tbody>
       </table>
     )

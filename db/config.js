@@ -38,8 +38,8 @@ new Item({
   'itemname': 'NewItem' + Math.floor(Math.random()*10),
   'listid': 0,
   'userid': 0,
-  'quantity': 1,
-  'cost': 1.99 * Math.floor(Math.random()*10)
+  'quantity': 1 * Math.floor(Math.random()*10),
+  'cost': 0.99 * Math.floor(Math.random()*10)
 }).save()
 
 db.knex.schema.hasTable('lists').then(function(exists) {

@@ -2,10 +2,16 @@ var express = require("express")
 var app = express();
 var path = require("path")
 var db = require('../db/config');
+var bodyParser = require('body-parser');
 
 var Item = db.Model.extend({
   tableName: 'items'
 });
+
+// Parse JSON (uniform resource locators)
+app.use(bodyParser.json());
+// Parse forms (signup/login)
+app.use(bodyParser.urlencoded({ extended: true }));
 
 /////////////////////////////////
 /////   SETTINGS         ///////
@@ -33,12 +39,40 @@ app.get('/node_modules/*', function(req, res) {
 });
 
 app.get('/items', function(req, res) {
-  db.knex('items').select()
-  .then(function(data) {
-    res.send(data)
+  sendAllItem(req, res)
+})
+
+app.delete('/items', function(req, res) {
+  console.log('about to delete... ', req.body)
+  var searchId = req.body.id
+  db.knex('items').select().where("id", searchId)
+  .del()
+  .then(function() {
+    sendAllItem(req, res)
   })
 })
 
 // app.post('/items', function(req, res) {
 //   new Item()
 // })
+
+/////////////////////////////////
+/////   DB HELPER        ///////
+///////////////////////////////
+
+var sendAllItem = function (req, res) {
+  db.knex('items').select()
+  .then(function(data) {
+    res.status(200).send(data)
+  })
+}
+
+
+
+
+
+
+
+
+
+
