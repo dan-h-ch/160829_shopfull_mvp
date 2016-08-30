@@ -93,7 +93,24 @@ thead {
   text-align: left
 }
 
+.nav-container {
+  display: inline-flex;
+  text-align: center;
+}
 
+.nav-bar {
+  display: flex;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.nav-item {
+  flex-grow: 1;
+  padding: 3px;
+  color: white;
+  background: black;
+  margin: 3px;
+}
 
 
 

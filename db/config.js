@@ -55,6 +55,17 @@ db.knex.schema.hasTable('lists').then(function(exists) {
   }
 });
 
+
+// var Item = db.Model.extend({
+//   tableName: 'lists'
+// });
+
+// new Item({
+//   'listname': 'newlist' + Math.floor(Math.random()*10),
+//   'userid': 0,
+// }).save()
+
+
 db.knex.schema.hasTable('users').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('users', function (user) {

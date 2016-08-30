@@ -3,7 +3,8 @@ class App extends React.Component {
     super(props)
 
     this.state = {
-      masterList: []
+      masterList: [],
+      navList: [{listname: "table"}, {listname: "workbench"}, {listname: "chair"}]
     }
 
     // lots of smells with these ajax calls
@@ -68,7 +69,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <div>Nav bar here</div>
+        <NavBar navList={this.state.navList}/>
         <TodoForm todoList={this.state.masterList} addItem={this.addItem}/>
         <TodoList todoList={this.state.masterList} deleteItem={this.deleteItem}/>
       </div>
