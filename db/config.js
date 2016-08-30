@@ -30,17 +30,17 @@ db.knex.schema.hasTable('items').then(function(exists) {
   }
 });
 
-var Item = db.Model.extend({
-  tableName: 'items'
-});
+// var Item = db.Model.extend({
+//   tableName: 'items'
+// });
 
-new Item({
-  'itemname': 'NewItem' + Math.floor(Math.random()*10),
-  'listid': 0,
-  'userid': 0,
-  'quantity': 1 * Math.floor(Math.random()*10),
-  'cost': 0.99 * Math.floor(Math.random()*10)
-}).save()
+// new Item({
+//   'itemname': 'NewItem' + Math.floor(Math.random()*10),
+//   'listid': 0,
+//   'userid': 0,
+//   'quantity': 1 * Math.floor(Math.random()*10),
+//   'cost': 0.99 * Math.floor(Math.random()*10)
+// }).save()
 
 db.knex.schema.hasTable('lists').then(function(exists) {
   if (!exists) {
