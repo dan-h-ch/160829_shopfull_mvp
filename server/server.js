@@ -30,6 +30,11 @@ app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname + "/.." + req.url))
 });
 
+// PROB SHOULD REFACTOR INTO A PUBLIC FOLDER
+app.get('/style.css', function(req, res) {
+  res.sendFile(path.join(__dirname + "/.." + req.url))
+});
+
 app.get('/compiled/*', function(req, res) {
   res.sendFile(path.join(__dirname + "/.." + req.url))
 });

@@ -23,52 +23,56 @@ var TodoList = function (_React$Component) {
       var _this2 = this;
 
       return React.createElement(
-        "table",
-        null,
+        "div",
+        { className: "centered-table" },
         React.createElement(
-          "thead",
-          null,
+          "table",
+          { className: "table-list" },
           React.createElement(
-            "tr",
+            "thead",
             null,
             React.createElement(
-              "th",
+              "tr",
               null,
-              "Shopping Item"
-            ),
-            React.createElement(
-              "th",
-              null,
-              "Qty"
-            ),
-            React.createElement(
-              "th",
-              null,
-              "Cost/Unit"
-            ),
-            React.createElement(
-              "th",
-              null,
-              "Total Cost"
-            ),
-            React.createElement(
-              "th",
-              null,
-              "+"
-            ),
-            React.createElement(
-              "th",
-              null,
-              "-"
+              React.createElement(
+                "th",
+                { className: "header-name" },
+                "Shopping Item"
+              ),
+              React.createElement(
+                "th",
+                null,
+                "Qty"
+              ),
+              React.createElement(
+                "th",
+                null,
+                "  +  "
+              ),
+              React.createElement(
+                "th",
+                null,
+                "  -  "
+              ),
+              React.createElement(
+                "th",
+                null,
+                "Cost/Unit"
+              ),
+              React.createElement(
+                "th",
+                null,
+                "Total Cost"
+              )
             )
+          ),
+          React.createElement(
+            "tbody",
+            null,
+            this.props.todoList.map(function (item) {
+              return React.createElement(TodoListItem, { todoListItem: item, deleteItem: _this2.props.deleteItem });
+            })
           )
-        ),
-        React.createElement(
-          "tbody",
-          null,
-          this.props.todoList.map(function (item) {
-            return React.createElement(TodoListItem, { todoListItem: item, deleteItem: _this2.props.deleteItem });
-          })
         )
       );
     }
@@ -76,4 +80,4 @@ var TodoList = function (_React$Component) {
 
   return TodoList;
 }(React.Component);
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL1RvZG9MaXN0LmpzeCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7O0lBQU0sUTs7O0FBQ0osb0JBQVksS0FBWixFQUFtQjtBQUFBOztBQUFBLCtHQUNYLEtBRFc7QUFFbEI7Ozs7NkJBR1E7QUFBQTs7QUFDUCxhQUNFO0FBQUE7QUFBQTtBQUNFO0FBQUE7QUFBQTtBQUNFO0FBQUE7QUFBQTtBQUNFO0FBQUE7QUFBQTtBQUFBO0FBQUEsYUFERjtBQUVFO0FBQUE7QUFBQTtBQUFBO0FBQUEsYUFGRjtBQUdFO0FBQUE7QUFBQTtBQUFBO0FBQUEsYUFIRjtBQUlFO0FBQUE7QUFBQTtBQUFBO0FBQUEsYUFKRjtBQUtFO0FBQUE7QUFBQTtBQUFBO0FBQUEsYUFMRjtBQU1FO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFORjtBQURGLFNBREY7QUFXSTtBQUFBO0FBQUE7QUFDRCxlQUFLLEtBQUwsQ0FBVyxRQUFYLENBQW9CLEdBQXBCLENBQXdCLFVBQUMsSUFBRDtBQUFBLG1CQUFVLG9CQUFDLFlBQUQsSUFBYyxjQUFjLElBQTVCLEVBQWtDLFlBQVksT0FBSyxLQUFMLENBQVcsVUFBekQsR0FBVjtBQUFBLFdBQXhCO0FBREM7QUFYSixPQURGO0FBaUJEOzs7O0VBeEJvQixNQUFNLFMiLCJmaWxlIjoiVG9kb0xpc3QuanMiLCJzb3VyY2VzQ29udGVudCI6WyJjbGFzcyBUb2RvTGlzdCBleHRlbmRzIFJlYWN0LkNvbXBvbmVudCB7XG4gIGNvbnN0cnVjdG9yKHByb3BzKSB7XG4gICAgc3VwZXIocHJvcHMpXG4gIH1cblxuXG4gIHJlbmRlcigpIHtcbiAgICByZXR1cm4gKFxuICAgICAgPHRhYmxlPlxuICAgICAgICA8dGhlYWQ+XG4gICAgICAgICAgPHRyPlxuICAgICAgICAgICAgPHRoPlNob3BwaW5nIEl0ZW08L3RoPlxuICAgICAgICAgICAgPHRoPlF0eTwvdGg+XG4gICAgICAgICAgICA8dGg+Q29zdC9Vbml0PC90aD5cbiAgICAgICAgICAgIDx0aD5Ub3RhbCBDb3N0PC90aD5cbiAgICAgICAgICAgIDx0aD4rPC90aD5cbiAgICAgICAgICAgIDx0aD4tPC90aD5cbiAgICAgICAgICA8L3RyPlxuICAgICAgICA8L3RoZWFkPlxuICAgICAgICAgIDx0Ym9keT5cbiAgICAgICAge3RoaXMucHJvcHMudG9kb0xpc3QubWFwKChpdGVtKSA9PiA8VG9kb0xpc3RJdGVtIHRvZG9MaXN0SXRlbT17aXRlbX0gZGVsZXRlSXRlbT17dGhpcy5wcm9wcy5kZWxldGVJdGVtfS8+KX1cbiAgICAgICAgICA8L3Rib2R5PlxuICAgICAgPC90YWJsZT5cbiAgICApXG4gIH1cbn1cbiJdfQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL1RvZG9MaXN0LmpzeCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7O0lBQU0sUTs7O0FBQ0osb0JBQVksS0FBWixFQUFtQjtBQUFBOztBQUFBLCtHQUNYLEtBRFc7QUFFbEI7Ozs7NkJBR1E7QUFBQTs7QUFDUCxhQUNFO0FBQUE7QUFBQSxVQUFLLFdBQVUsZ0JBQWY7QUFDRTtBQUFBO0FBQUEsWUFBTyxXQUFVLFlBQWpCO0FBQ0U7QUFBQTtBQUFBO0FBQ0U7QUFBQTtBQUFBO0FBQ0U7QUFBQTtBQUFBLGtCQUFJLFdBQVUsYUFBZDtBQUFBO0FBQUEsZUFERjtBQUVFO0FBQUE7QUFBQTtBQUFBO0FBQUEsZUFGRjtBQUdFO0FBQUE7QUFBQTtBQUFBO0FBQUEsZUFIRjtBQUlFO0FBQUE7QUFBQTtBQUFBO0FBQUEsZUFKRjtBQUtFO0FBQUE7QUFBQTtBQUFBO0FBQUEsZUFMRjtBQU1FO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFORjtBQURGLFdBREY7QUFXSTtBQUFBO0FBQUE7QUFDRCxpQkFBSyxLQUFMLENBQVcsUUFBWCxDQUFvQixHQUFwQixDQUF3QixVQUFDLElBQUQ7QUFBQSxxQkFBVSxvQkFBQyxZQUFELElBQWMsY0FBYyxJQUE1QixFQUFrQyxZQUFZLE9BQUssS0FBTCxDQUFXLFVBQXpELEdBQVY7QUFBQSxhQUF4QjtBQURDO0FBWEo7QUFERixPQURGO0FBbUJEOzs7O0VBMUJvQixNQUFNLFMiLCJmaWxlIjoiVG9kb0xpc3QuanMiLCJzb3VyY2VzQ29udGVudCI6WyJjbGFzcyBUb2RvTGlzdCBleHRlbmRzIFJlYWN0LkNvbXBvbmVudCB7XG4gIGNvbnN0cnVjdG9yKHByb3BzKSB7XG4gICAgc3VwZXIocHJvcHMpXG4gIH1cblxuXG4gIHJlbmRlcigpIHtcbiAgICByZXR1cm4gKFxuICAgICAgPGRpdiBjbGFzc05hbWU9XCJjZW50ZXJlZC10YWJsZVwiPlxuICAgICAgICA8dGFibGUgY2xhc3NOYW1lPVwidGFibGUtbGlzdFwiPlxuICAgICAgICAgIDx0aGVhZD5cbiAgICAgICAgICAgIDx0cj5cbiAgICAgICAgICAgICAgPHRoIGNsYXNzTmFtZT1cImhlYWRlci1uYW1lXCI+U2hvcHBpbmcgSXRlbTwvdGg+XG4gICAgICAgICAgICAgIDx0aD5RdHk8L3RoPlxuICAgICAgICAgICAgICA8dGg+ICArICA8L3RoPlxuICAgICAgICAgICAgICA8dGg+ICAtICA8L3RoPlxuICAgICAgICAgICAgICA8dGg+Q29zdC9Vbml0PC90aD5cbiAgICAgICAgICAgICAgPHRoPlRvdGFsIENvc3Q8L3RoPlxuICAgICAgICAgICAgPC90cj5cbiAgICAgICAgICA8L3RoZWFkPlxuICAgICAgICAgICAgPHRib2R5PlxuICAgICAgICAgIHt0aGlzLnByb3BzLnRvZG9MaXN0Lm1hcCgoaXRlbSkgPT4gPFRvZG9MaXN0SXRlbSB0b2RvTGlzdEl0ZW09e2l0ZW19IGRlbGV0ZUl0ZW09e3RoaXMucHJvcHMuZGVsZXRlSXRlbX0vPil9XG4gICAgICAgICAgICA8L3Rib2R5PlxuICAgICAgICA8L3RhYmxlPlxuICAgICAgPC9kaXY+XG4gICAgKVxuICB9XG59XG4iXX0=
