@@ -8,6 +8,30 @@ class App extends React.Component {
     }
 
     // lots of smells with these ajax calls
+    this.updateQuant = (item, addOrSub) => {
+      if (addOrSub === "add") {
+        item.quantity++
+      } else if (addOrSub === "sub") {
+        item.quantity--
+      }
+      var that = this
+      $.ajax({
+        type: "PUT",
+        url: "/items",
+        contentType: "application/json",
+        data: JSON.stringify(item),
+        success: function(data) {
+          console.log(data)
+          that.setState({
+            masterList: data
+          })
+        },
+        error: function(err) {
+          console.log("err: ", err)
+        }
+      })
+    }
+
     this.addItem = (newItem) => {
       var that = this
       $.ajax({
@@ -71,7 +95,7 @@ class App extends React.Component {
       <div>
         <NavBar navList={this.state.navList}/>
         <TodoForm todoList={this.state.masterList} addItem={this.addItem}/>
-        <TodoList todoList={this.state.masterList} deleteItem={this.deleteItem}/>
+        <TodoList todoList={this.state.masterList} deleteItem={this.deleteItem} updateQuant={this.updateQuant} />
       </div>
     )
   }

@@ -112,7 +112,10 @@ thead {
   margin: 3px;
 }
 
-
+.delete {
+  font-size: 10px;
+  vertical-align: middle
+}
 
 
 

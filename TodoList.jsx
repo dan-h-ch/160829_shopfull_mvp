@@ -16,10 +16,11 @@ class TodoList extends React.Component {
               <th>  -  </th>
               <th>Cost/Unit</th>
               <th>Total Cost</th>
+              <th>Del</th>
             </tr>
           </thead>
             <tbody>
-              {this.props.todoList.map((item) => <TodoListItem todoListItem={item} deleteItem={this.props.deleteItem}/>)}
+              {this.props.todoList.map((item) => <TodoListItem todoListItem={item} deleteItem={this.props.deleteItem} updateQuant={this.props.updateQuant} />)}
             </tbody>
         </table>
       </div>

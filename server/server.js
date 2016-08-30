@@ -65,6 +65,14 @@ app.post('/items', function(req, res) {
   })
 })
 
+app.put('/items', function(req, res) {
+  console.log('about to update...', req.body)
+  db.knex('items').where('id', req.body.id).update(req.body)
+  .then(function() {
+    sendAllItem(req, res)
+  })
+})
+
 /////////////////////////////////
 /////   DB HELPER        ///////
 ///////////////////////////////
