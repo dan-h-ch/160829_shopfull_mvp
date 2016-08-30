@@ -13,6 +13,8 @@ class TodoList extends React.Component {
             <th>Qty</th>
             <th>Cost/Unit</th>
             <th>Total Cost</th>
+            <th>+</th>
+            <th>-</th>
           </tr>
         </thead>
           <tbody>

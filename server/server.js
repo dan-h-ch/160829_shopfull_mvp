@@ -52,9 +52,13 @@ app.delete('/items', function(req, res) {
   })
 })
 
-// app.post('/items', function(req, res) {
-//   new Item()
-// })
+app.post('/items', function(req, res) {
+  console.log('about to add... ', req.body)
+  db.knex.insert(req.body).into('items')
+  .then(function() {
+    sendAllItem(req, res)
+  })
+})
 
 /////////////////////////////////
 /////   DB HELPER        ///////

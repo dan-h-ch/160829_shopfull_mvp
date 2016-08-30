@@ -5,7 +5,7 @@ class TodoForm extends React.Component {
     this.state = {
       submitName: "newItem",
       submitQuant: 1,
-      submitCost: 1.99
+      submitCost: 1.99,
     }
   }
 
@@ -14,13 +14,19 @@ class TodoForm extends React.Component {
     var preparedSubmit = {
       itemname: this.state.submitName,
       quantity: this.state.submitQuant,
+      listid: 0,
+      userid: 0,
       cost: this.state.submitCost
+      // no timestamps currently
+      // created_at: new Date.now(),
+      // updated_at: new Date.now()
     }
-    this.props.updateList(preparedSubmit)
+    this.props.addItem(preparedSubmit)
     this.setState({
-      submitName: "newItem",
+      // would be cool to have randomizer for the default values
+      submitName: "something shiny",
       submitQuant: 1,
-      submitCost: 0.99
+      submitCost: 9.99
     })
   }
 
