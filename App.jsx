@@ -1,5 +1,3 @@
-var React = require("react")
-
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -28,5 +26,3 @@ class App extends React.Component {
     )
   }
 }
-
-module.exports = App
