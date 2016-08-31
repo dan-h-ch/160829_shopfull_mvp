@@ -66,6 +66,7 @@ body {
 
 table {
   margin: 0 auto;
+  padding-bottom: 5px;
 }
 
 table td, table th {
@@ -115,6 +116,16 @@ thead {
 .delete {
   font-size: 10px;
   vertical-align: middle
+}
+
+.final-cost {
+  text-align: center;
+  margin-top: 5px;
+  margin-right: 10px;
+  padding: 2px;
+  color: white;
+  background: black;
+  display: inline;
 }
 
 

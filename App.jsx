@@ -12,7 +12,7 @@ class App extends React.Component {
       if (addOrSub === "add") {
         item.quantity++
       } else if (addOrSub === "sub") {
-        item.quantity--
+        item.quantity = Math.max(item.quantity - 1, 0)
       }
       var that = this
       $.ajax({
@@ -96,6 +96,7 @@ class App extends React.Component {
         <NavBar navList={this.state.navList}/>
         <TodoForm todoList={this.state.masterList} addItem={this.addItem}/>
         <TodoList todoList={this.state.masterList} deleteItem={this.deleteItem} updateQuant={this.updateQuant} />
+        <TodoCost todoList={this.state.masterList}/>
       </div>
     )
   }

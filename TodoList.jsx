@@ -10,7 +10,7 @@ class TodoList extends React.Component {
         <table className="table-list">
           <thead>
             <tr>
-              <th className="header-name">Shopping Item</th>
+              <th className="header-name">Item</th>
               <th>Qty</th>
               <th>  +  </th>
               <th>  -  </th>
