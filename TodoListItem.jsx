@@ -24,8 +24,8 @@ class TodoListItem extends React.Component{
         <td>{this.props.todoListItem.quantity}</td>
         <td onClick={(e) => this.increaseQuant(e)}>+</td>
         <td onClick={(e) => this.decreaseQuant(e)}>-</td>
-        <td>${this.props.todoListItem.cost}</td>
-        <td>${totalCost}</td>
+        <td>${this.props.todoListItem.cost.toFixed(2)}</td>
+        <td>${totalCost.toFixed(2)}</td>
         <td className="delete" onClick={(e) => this.handleClick(e)}>delete</td>
       </tr>
     )
