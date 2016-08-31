@@ -4,7 +4,7 @@ class App extends React.Component {
 
     this.state = {
       masterList: [],
-      navList: [{listname: "table"}, {listname: "workbench"}, {listname: "chair"}]
+      navList: []
     }
 
     // lots of smells with these ajax calls
@@ -77,10 +77,43 @@ class App extends React.Component {
         contentType: "application/json",
         success: function(data) {
           callback(data)
+        },
+        error: function(err) {
+          console.log("err: ", err)
+        }
+      })
+    }
+
+    this.filterData = (filterObj) => {
+      $.ajax({
+        type: "POST",
+        url: "/filter",
+        contentType: "application/json",
+        data: JSON.stringify(filterObj),
+        success: function(data) {
+          callback(data)
           // console.log(this)
           // this.setState({
           //   masterList: data
           // })
+        },
+        error: function(err) {
+          console.log("err: ", err)
+        }
+      })
+    }
+
+    this.fetchAllList = () => {
+      var that = this;
+      $.ajax({
+        type: "GET",
+        url: "/lists",
+        contentType: "application/json",
+        success: function(data) {
+          console.log(data)
+          that.setState({
+            navList: data
+          })
         },
         error: function(err) {
           console.log("err: ", err)
@@ -107,6 +140,8 @@ class App extends React.Component {
         masterList: data
       })
     }.bind(this))
+
+    this.fetchAllList()
   }
 }
 

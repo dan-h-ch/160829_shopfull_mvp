@@ -73,6 +73,20 @@ app.put('/items', function(req, res) {
   })
 })
 
+// For filter
+// app.post('/filter', function(req, res) {
+//   console.log('about to filter... ', req.body)
+//   db.knex.insert(req.body).into('items')
+//   .then(function() {
+//     sendAllItem(req, res)
+//   })
+// })
+
+app.get('/lists', function(req, res) {
+  sendAllLists(req, res)
+})
+
+
 /////////////////////////////////
 /////   DB HELPER        ///////
 ///////////////////////////////
@@ -84,6 +98,13 @@ var sendAllItem = function (req, res) {
   })
 }
 
+
+var sendAllLists = function (req, res) {
+  db.knex('lists').select()
+  .then(function(data) {
+    res.status(200).send(data)
+  })
+}
 
 
 
