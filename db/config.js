@@ -1,5 +1,5 @@
 var path = require('path');
-var DATABASE_URL = DATABASE_URL || {database: 'shopfull'}
+var DATABASE_URL = process.env.DATABASE_URL || {database: 'shopfull'}
 
 var knex = require('knex') ({
   client: 'postgresql',
