@@ -71,6 +71,7 @@ class App extends React.Component {
     }
 
     this.fetchData = (options, callback) => {
+      console.log("about to fetch data")
       $.ajax({
         type: "GET",
         url: "/items",

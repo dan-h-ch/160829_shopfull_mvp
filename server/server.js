@@ -92,7 +92,7 @@ app.get('/lists', function(req, res) {
 ///////////////////////////////
 
 var sendAllItem = function (req, res) {
-  db.knex('items').select()
+  db.knex('items').select().orderBy('id', 'asce')
   .then(function(data) {
     res.status(200).send(data)
   })

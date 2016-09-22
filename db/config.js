@@ -1,16 +1,22 @@
 var path = require('path');
+var DATABASE_URL = DATABASE_URL || {database: 'shopfull'}
 
 var knex = require('knex') ({
-  client: 'sqlite3',
-  connection: {
-    host: '127.0.0.1',
-    user: 'your_database_user',
-    password: 'password',
-    database: 'shopfull',
-    charset: 'utf8',
-    filename: path.join(__dirname, '../db/shopfull.sqlite')
-  }
+  client: 'postgresql',
+  connection: DATABASE_URL
 });
+
+// var knex = require('knex') ({
+//   client: 'sqlite3',
+//   connection: {
+//     host: '127.0.0.1',
+//     user: 'your_database_user',
+//     password: 'password',
+//     database: 'shopfull',
+//     charset: 'utf8',
+//     filename: path.join(__dirname, '../db/shopfull.sqlite')
+//   }
+// });
 
 var db = require('bookshelf')(knex);
 
@@ -22,7 +28,7 @@ db.knex.schema.hasTable('items').then(function(exists) {
       item.string('listid', 255);
       item.string('userid', 100);
       item.integer('quantity');
-      item.real('cost');
+      item.decimal('cost');
       item.timestamps();
     }).then(function (table) {
       console.log('Created Table', table);

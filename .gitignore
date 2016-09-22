@@ -6,3 +6,7 @@ node_modules/
 
 ## logs ##
 *.log
+
+## transpiled db/server - not needed ##
+compiled/db/
+compiled/server/
