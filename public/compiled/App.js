@@ -18,7 +18,7 @@ var App = function (_React$Component) {
 
     _this.state = {
       masterList: [],
-      navList: []
+      navList: [{ listname: "brown" }, { listname: "cow" }]
     };
 
     // lots of smells with these ajax calls

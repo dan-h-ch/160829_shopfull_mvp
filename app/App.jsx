@@ -4,7 +4,7 @@ class App extends React.Component {
 
     this.state = {
       masterList: [],
-      navList: []
+      navList: [{listname:"brown"}, {listname:"cow"}]
     }
 
     // lots of smells with these ajax calls
