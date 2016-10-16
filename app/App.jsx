@@ -22,6 +22,7 @@ class App extends React.Component {
         data: JSON.stringify(item),
         success: function(data) {
           console.log(data)
+          console.log("hoho")
           that.setState({
             masterList: data
           })
