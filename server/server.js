@@ -19,25 +19,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 var port = process.env.PORT || 4568;
 
-app.listen(port)
+app.listen(port, function() {
+  console.log("listening on", port)
+})
 
 /////////////////////////////////
 /////   ROUTES           ///////
 ///////////////////////////////
 
-// WOW THIS IS UGLY!!!!
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname + "/.." + req.url))
-});
-
-// PROB SHOULD REFACTOR INTO A PUBLIC FOLDER
-app.get('/style.css', function(req, res) {
-  res.sendFile(path.join(__dirname + "/.." + req.url))
-});
-
-app.get('/compiled/*', function(req, res) {
-  res.sendFile(path.join(__dirname + "/.." + req.url))
-});
+app.use(express.static('public'));
 
 app.get('/node_modules/*', function(req, res) {
   res.sendFile(path.join(__dirname + "/.." + req.url))
