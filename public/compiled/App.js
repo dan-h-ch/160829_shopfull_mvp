@@ -18,7 +18,7 @@ var App = function (_React$Component) {
 
     _this.state = {
       masterList: [],
-      navList: [{ listname: "brown" }, { listname: "cow" }]
+      navList: []
     };
 
     // lots of smells with these ajax calls
@@ -39,6 +39,25 @@ var App = function (_React$Component) {
           console.log("hoho");
           that.setState({
             masterList: data
+          });
+        },
+        error: function error(err) {
+          console.log("err: ", err);
+        }
+      });
+    };
+
+    _this.addList = function (newList) {
+      var that = _this;
+      $.ajax({
+        type: "POST",
+        url: "/lists",
+        contentType: "application/json",
+        data: JSON.stringify(newList),
+        success: function success(data) {
+          console.log(data);
+          that.setState({
+            navList: data
           });
         },
         error: function error(err) {
@@ -146,7 +165,7 @@ var App = function (_React$Component) {
       return React.createElement(
         "div",
         null,
-        React.createElement(NavBar, { navList: this.state.navList }),
+        React.createElement(NavBar, { navList: this.state.navList, addList: this.addList }),
         React.createElement(TodoForm, { todoList: this.state.masterList, addItem: this.addItem }),
         React.createElement(TodoList, { todoList: this.state.masterList, deleteItem: this.deleteItem, updateQuant: this.updateQuant }),
         React.createElement(TodoCost, { todoList: this.state.masterList })

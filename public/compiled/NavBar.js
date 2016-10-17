@@ -14,12 +14,47 @@ var NavBar = function (_React$Component) {
   function NavBar(props) {
     _classCallCheck(this, NavBar);
 
-    return _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).call(this, props));
+
+    _this.state = {};
+    return _this;
   }
 
   _createClass(NavBar, [{
+    key: "handleClick",
+    value: function handleClick(e) {
+      this.props.addList(this.props.newListName);
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      var time = new Date();
+      console.log(time);
+      var preparedSubmit = {
+        listname: this.state.submitListName,
+        userid: 0,
+        created_at: new Date(),
+        updated_at: new Date()
+      };
+      this.props.addList(preparedSubmit);
+      this.setState({
+        // would be cool to have randomizer for the default values
+        submitListName: "new list"
+      });
+    }
+  }, {
+    key: "updateListName",
+    value: function updateListName(e) {
+      this.setState({
+        submitListName: e.target.value
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return React.createElement(
         "div",
         { className: "nav-container" },
@@ -32,7 +67,14 @@ var NavBar = function (_React$Component) {
           React.createElement(
             "li",
             null,
-            "Add new list"
+            React.createElement(
+              "form",
+              { className: "submitForm", onSubmit: this.handleSubmit.bind(this) },
+              React.createElement("input", { type: "text", placeholder: "newlist...", value: this.state.submitListName, onChange: function onChange(e) {
+                  return _this2.updateListName(e);
+                } }),
+              React.createElement("input", { type: "submit", value: "New List!" })
+            )
           )
         )
       );

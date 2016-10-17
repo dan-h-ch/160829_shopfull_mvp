@@ -4,7 +4,7 @@ class App extends React.Component {
 
     this.state = {
       masterList: [],
-      navList: [{listname:"brown"}, {listname:"cow"}]
+      navList: []
     }
 
     // lots of smells with these ajax calls
@@ -25,6 +25,25 @@ class App extends React.Component {
           console.log("hoho")
           that.setState({
             masterList: data
+          })
+        },
+        error: function(err) {
+          console.log("err: ", err)
+        }
+      })
+    }
+
+    this.addList = (newList) => {
+      var that = this
+      $.ajax({
+        type: "POST",
+        url: "/lists",
+        contentType: "application/json",
+        data: JSON.stringify(newList),
+        success: function(data) {
+          console.log(data)
+          that.setState({
+            navList: data
           })
         },
         error: function(err) {
@@ -128,7 +147,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <NavBar navList={this.state.navList}/>
+        <NavBar navList={this.state.navList} addList={this.addList}/>
         <TodoForm todoList={this.state.masterList} addItem={this.addItem}/>
         <TodoList todoList={this.state.masterList} deleteItem={this.deleteItem} updateQuant={this.updateQuant} />
         <TodoCost todoList={this.state.masterList}/>
