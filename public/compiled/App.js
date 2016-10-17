@@ -19,12 +19,16 @@ var App = function (_React$Component) {
     _this.state = {
       masterList: [],
       navList: [],
-      listid: 1
+      listid: 1 //default - need to change it based on when user logs in
     };
 
     _this.updateListid = function (id) {
+      var displayList = _this.state.masterList.filter(function (entry) {
+        return entry.listid === id;
+      });
       _this.setState({
-        listid: id
+        listid: id,
+        displayList: displayList
       });
     };
 
@@ -125,24 +129,25 @@ var App = function (_React$Component) {
       });
     };
 
-    _this.filterData = function (filterObj) {
-      $.ajax({
-        type: "POST",
-        url: "/filter",
-        contentType: "application/json",
-        data: JSON.stringify(filterObj),
-        success: function success(data) {
-          callback(data);
-          // console.log(this)
-          // this.setState({
-          //   masterList: data
-          // })
-        },
-        error: function error(err) {
-          console.log("err: ", err);
-        }
-      });
-    };
+    // // not being used
+    // this.filterData = (filterObj) => {
+    //   $.ajax({
+    //     type: "POST",
+    //     url: "/filter",
+    //     contentType: "application/json",
+    //     data: JSON.stringify(filterObj),
+    //     success: function(data) {
+    //       callback(data)
+    //       // console.log(this)
+    //       // this.setState({
+    //       //   masterList: data
+    //       // })
+    //     },
+    //     error: function(err) {
+    //       console.log("err: ", err)
+    //     }
+    //   })
+    // }
 
     _this.fetchAllList = function () {
       var that = _this;
@@ -172,14 +177,14 @@ var App = function (_React$Component) {
         "div",
         null,
         React.createElement(NavBar, { navList: this.state.navList, addList: this.addList, updateListid: this.updateListid }),
-        React.createElement(TodoForm, { todoList: this.state.masterList, addItem: this.addItem, listid: this.state.listid }),
-        React.createElement(TodoList, { todoList: this.state.masterList, deleteItem: this.deleteItem, updateQuant: this.updateQuant }),
-        React.createElement(TodoCost, { todoList: this.state.masterList })
+        React.createElement(TodoForm, { addItem: this.addItem, listid: this.state.listid }),
+        React.createElement(TodoList, { todoList: this.state.displayList, deleteItem: this.deleteItem, updateQuant: this.updateQuant }),
+        React.createElement(TodoCost, { todoList: this.state.displayList })
       );
     }
   }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
+    key: "componentWillMount",
+    value: function componentWillMount() {
       this.fetchData({}, function (data) {
         this.setState({
           masterList: data
@@ -187,6 +192,8 @@ var App = function (_React$Component) {
       }.bind(this));
 
       this.fetchAllList();
+
+      this.updateListid(1);
     }
   }]);
 

@@ -5,12 +5,14 @@ class App extends React.Component {
     this.state = {
       masterList: [],
       navList: [],
-      listid: 1
+      listid: 1 //default - need to change it based on when user logs in
     }
 
     this.updateListid = (id) => {
+      var displayList = this.state.masterList.filter((entry) => entry.listid === id)
       this.setState({
-        listid: id
+        listid: id,
+        displayList: displayList
       })
     }
 
@@ -111,24 +113,25 @@ class App extends React.Component {
       })
     }
 
-    this.filterData = (filterObj) => {
-      $.ajax({
-        type: "POST",
-        url: "/filter",
-        contentType: "application/json",
-        data: JSON.stringify(filterObj),
-        success: function(data) {
-          callback(data)
-          // console.log(this)
-          // this.setState({
-          //   masterList: data
-          // })
-        },
-        error: function(err) {
-          console.log("err: ", err)
-        }
-      })
-    }
+    // // not being used
+    // this.filterData = (filterObj) => {
+    //   $.ajax({
+    //     type: "POST",
+    //     url: "/filter",
+    //     contentType: "application/json",
+    //     data: JSON.stringify(filterObj),
+    //     success: function(data) {
+    //       callback(data)
+    //       // console.log(this)
+    //       // this.setState({
+    //       //   masterList: data
+    //       // })
+    //     },
+    //     error: function(err) {
+    //       console.log("err: ", err)
+    //     }
+    //   })
+    // }
 
     this.fetchAllList = () => {
       var that = this;
@@ -154,21 +157,23 @@ class App extends React.Component {
     return (
       <div>
         <NavBar navList={this.state.navList} addList={this.addList} updateListid={this.updateListid}/>
-        <TodoForm todoList={this.state.masterList} addItem={this.addItem} listid={this.state.listid}/>
-        <TodoList todoList={this.state.masterList} deleteItem={this.deleteItem} updateQuant={this.updateQuant}  />
-        <TodoCost todoList={this.state.masterList}/>
+        <TodoForm addItem={this.addItem} listid={this.state.listid}/>
+        <TodoList todoList={this.state.displayList} deleteItem={this.deleteItem} updateQuant={this.updateQuant}  />
+        <TodoCost todoList={this.state.displayList}/>
       </div>
     )
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.fetchData({}, function(data) {
       this.setState({
         masterList: data
       })
-    }.bind(this))
+    }.bind(this));
 
-    this.fetchAllList()
+    this.fetchAllList();
+
+    this.updateListid(1);
   }
 }
 
