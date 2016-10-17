@@ -28,7 +28,12 @@ var NavBar = function (_React$Component) {
           { className: "nav-bar" },
           this.props.navList.map(function (list) {
             return React.createElement(NavBarItem, { navList: list });
-          })
+          }),
+          React.createElement(
+            "li",
+            null,
+            "Add new list"
+          )
         )
       );
     }

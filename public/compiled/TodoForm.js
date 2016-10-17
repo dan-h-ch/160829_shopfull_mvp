@@ -28,15 +28,16 @@ var TodoForm = function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
+      var time = new Date();
+      console.log(time);
       var preparedSubmit = {
         itemname: this.state.submitName,
         quantity: this.state.submitQuant,
         listid: 0,
         userid: 0,
-        cost: this.state.submitCost
-        // no timestamps currently
-        // created_at: new Date.now(),
-        // updated_at: new Date.now()
+        cost: this.state.submitCost,
+        created_at: new Date(),
+        updated_at: new Date()
       };
       this.props.addItem(preparedSubmit);
       this.setState({

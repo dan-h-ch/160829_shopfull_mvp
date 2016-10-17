@@ -29,6 +29,7 @@ db.knex.schema.hasTable('items').then(function(exists) {
       item.string('userid', 100);
       item.integer('quantity');
       item.decimal('cost');
+      item.boolean('deleted').defaultTo('false');
       item.timestamps();
     }).then(function (table) {
       console.log('Created Table', table);
