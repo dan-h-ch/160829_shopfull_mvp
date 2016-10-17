@@ -17,7 +17,7 @@ var TodoForm = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (TodoForm.__proto__ || Object.getPrototypeOf(TodoForm)).call(this, props));
 
     _this.state = {
-      // submitName: "newItem",
+      // listid: 1
       // submitQuant: 1,
       // submitCost: 1.99,
     };
@@ -33,7 +33,7 @@ var TodoForm = function (_React$Component) {
       var preparedSubmit = {
         itemname: this.state.submitName,
         quantity: this.state.submitQuant,
-        listid: 1,
+        listid: this.props.listid,
         userid: 0,
         cost: this.state.submitCost,
         created_at: new Date(),

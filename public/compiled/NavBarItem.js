@@ -20,7 +20,9 @@ var NavBarItem = function (_React$Component) {
   _createClass(NavBarItem, [{
     key: "navFilter",
     value: function navFilter(e) {
-      console.log(this.props.navList);
+      console.log(this.props.navList.id);
+      // need to set list id up chain
+      this.props.updateListid(this.props.navList.id);
     }
   }, {
     key: "render",

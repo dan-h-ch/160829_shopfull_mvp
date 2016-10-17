@@ -4,7 +4,14 @@ class App extends React.Component {
 
     this.state = {
       masterList: [],
-      navList: []
+      navList: [],
+      listid: 1
+    }
+
+    this.updateListid = (id) => {
+      this.setState({
+        listid: id
+      })
     }
 
     // lots of smells with these ajax calls
@@ -22,7 +29,6 @@ class App extends React.Component {
         data: JSON.stringify(item),
         success: function(data) {
           console.log(data)
-          console.log("hoho")
           that.setState({
             masterList: data
           })
@@ -147,9 +153,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <NavBar navList={this.state.navList} addList={this.addList}/>
-        <TodoForm todoList={this.state.masterList} addItem={this.addItem}/>
-        <TodoList todoList={this.state.masterList} deleteItem={this.deleteItem} updateQuant={this.updateQuant} />
+        <NavBar navList={this.state.navList} addList={this.addList} updateListid={this.updateListid}/>
+        <TodoForm todoList={this.state.masterList} addItem={this.addItem} listid={this.state.listid}/>
+        <TodoList todoList={this.state.masterList} deleteItem={this.deleteItem} updateQuant={this.updateQuant}  />
         <TodoCost todoList={this.state.masterList}/>
       </div>
     )

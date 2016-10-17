@@ -18,7 +18,14 @@ var App = function (_React$Component) {
 
     _this.state = {
       masterList: [],
-      navList: []
+      navList: [],
+      listid: 1
+    };
+
+    _this.updateListid = function (id) {
+      _this.setState({
+        listid: id
+      });
     };
 
     // lots of smells with these ajax calls
@@ -36,7 +43,6 @@ var App = function (_React$Component) {
         data: JSON.stringify(item),
         success: function success(data) {
           console.log(data);
-          console.log("hoho");
           that.setState({
             masterList: data
           });
@@ -165,8 +171,8 @@ var App = function (_React$Component) {
       return React.createElement(
         "div",
         null,
-        React.createElement(NavBar, { navList: this.state.navList, addList: this.addList }),
-        React.createElement(TodoForm, { todoList: this.state.masterList, addItem: this.addItem }),
+        React.createElement(NavBar, { navList: this.state.navList, addList: this.addList, updateListid: this.updateListid }),
+        React.createElement(TodoForm, { todoList: this.state.masterList, addItem: this.addItem, listid: this.state.listid }),
         React.createElement(TodoList, { todoList: this.state.masterList, deleteItem: this.deleteItem, updateQuant: this.updateQuant }),
         React.createElement(TodoCost, { todoList: this.state.masterList })
       );

@@ -62,7 +62,7 @@ var NavBar = function (_React$Component) {
           "ul",
           { className: "nav-bar" },
           this.props.navList.map(function (list) {
-            return React.createElement(NavBarItem, { navList: list });
+            return React.createElement(NavBarItem, { navList: list, updateListid: _this2.props.updateListid });
           }),
           React.createElement(
             "li",
