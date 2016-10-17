@@ -33,7 +33,7 @@ var TodoForm = function (_React$Component) {
       var preparedSubmit = {
         itemname: this.state.submitName,
         quantity: this.state.submitQuant,
-        listid: 0,
+        listid: 1,
         userid: 0,
         cost: this.state.submitCost,
         created_at: new Date(),

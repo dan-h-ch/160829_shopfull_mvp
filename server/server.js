@@ -37,6 +37,7 @@ app.get('/items', function(req, res) {
   sendAllItem(req, res)
 })
 
+// do i want to actually delete the item?
 app.delete('/items', function(req, res) {
   console.log('about to delete... ', req.body)
   var searchId = req.body.id

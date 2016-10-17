@@ -19,13 +19,26 @@ var knex = require('knex') ({
 // });
 
 var db = require('bookshelf')(knex);
+db.knex.schema.hasTable('lists').then(function(exists) {
+  if (!exists) {
+    db.knex.schema.createTable('lists', function (list) {
+      list.increments('id').primary();
+      list.string('listname', 255);
+      list.integer('userid')
+      list.timestamps();
+    }).then(function (table) {
+      console.log('Created Table', table);
+    });
+  }
+});
 
 db.knex.schema.hasTable('items').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('items', function (item) {
       item.increments('id').primary();
       item.string('itemname', 255);
-      item.string('listid', 255);
+      item.integer('listid', 255);
+      item.foreign('listid').references('lists.id');
       item.string('userid', 100);
       item.integer('quantity');
       item.decimal('cost');
@@ -49,18 +62,6 @@ db.knex.schema.hasTable('items').then(function(exists) {
 //   'cost': 0.99 * Math.floor(Math.random()*10)
 // }).save()
 
-db.knex.schema.hasTable('lists').then(function(exists) {
-  if (!exists) {
-    db.knex.schema.createTable('lists', function (list) {
-      list.increments('id').primary();
-      list.string('listname', 255);
-      list.integer('userid')
-      list.timestamps();
-    }).then(function (table) {
-      console.log('Created Table', table);
-    });
-  }
-});
 
 
 // var Item = db.Model.extend({
