@@ -15,7 +15,7 @@ class NavBar extends React.Component {
     console.log(time)
     var preparedSubmit = {
       listname: this.state.submitListName,
-      userid: 0,
+      userid: this.props.userid,
       created_at: new Date(),
       updated_at: new Date()
     }
@@ -41,7 +41,7 @@ class NavBar extends React.Component {
           {this.props.navList.map((list) => <NavBarItem key={list.id} navList={list} updateListid={this.props.updateListid}/>)}
           <li>
             <form className="submitForm" onSubmit={this.handleSubmit.bind(this)}>
-              <input type="text" placeholder="newlist..." value={this.state.submitListName} onChange={(e) => this.updateListName(e)} />
+              <input type="text" placeholder="newlist..." value={this.state.submitListName || ''} onChange={(e) => this.updateListName(e)} />
               <input type="submit" value="New List!" />
             </form>
           </li>

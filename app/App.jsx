@@ -8,8 +8,9 @@ class App extends React.Component {
     this.state = {
       masterList: [],
       navList: [],
-      listid: 1,
-      displayList: [] //default - need to change it based on when user logs in
+      displayList: [],
+      listid: 1, //default - need to change it based on when user logs in
+      userid: 2 //temporarily
     }
 
     this.updateListid = (id) => {
@@ -160,7 +161,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <NavBar navList={this.state.navList} addList={this.addList} updateListid={this.updateListid}/>
+        <NavBar userid={this.state.userid} navList={this.state.navList} addList={this.addList} updateListid={this.updateListid}/>
         <TodoForm addItem={this.addItem} listid={this.state.listid}/>
         <TodoList todoList={this.state.displayList} deleteItem={this.deleteItem} updateQuant={this.updateQuant}  />
         <TodoCost todoList={this.state.displayList}/>
