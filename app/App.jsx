@@ -13,35 +13,29 @@ class App extends React.Component {
       userid: 2 //temporarily
     }
 
+
+/////////////////////////////////
+/////   LIST RELATED     ///////
+///////////////////////////////
+    
+    this.fetchAllList = () => {
+      var that = this;
+      fetch('/lists')
+      .then(function(res) {
+        return res.json()
+      })
+      .then(function(data) {
+        that.setState({
+          navList: data
+        })
+      })
+    }
+
     this.updateListid = (id) => {
       var displayList = this.state.masterList.filter((entry) => entry.listid === id)
       this.setState({
         listid: id,
         displayList: displayList
-      })
-    }
-
-    // lots of smells with these ajax calls
-    this.updateQuant = (item, addOrSub) => {
-      if (addOrSub === "add") {
-        item.quantity++
-      } else if (addOrSub === "sub") {
-        item.quantity = Math.max(item.quantity - 1, 0)
-      }
-      var that = this
-      $.ajax({
-        type: "PUT",
-        url: "/items",
-        contentType: "application/json",
-        data: JSON.stringify(item),
-        success: function(data) {
-          that.setState({
-            masterList: JSON.parse(data)
-          })
-        },
-        error: function(err) {
-          console.log("err: ", err)
-        }
       })
     }
 
@@ -60,6 +54,52 @@ class App extends React.Component {
           navList: data
         })
       })
+    }
+
+    this.deleteList = (listid) => {
+
+    }
+
+/////////////////////////////////
+/////   ITEM RELATED     ///////
+///////////////////////////////
+
+    // lots of smells with these ajax calls
+    this.updateQuant = (item, addOrSub) => {
+      if (addOrSub === "add") {
+        item.quantity++
+      } else if (addOrSub === "sub") {
+        item.quantity = Math.max(item.quantity - 1, 0)
+      }
+      fetch('/items', {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(item),
+      })
+      .then((data) => data.json())
+      .then((data) => {
+        this.setState({
+          masterList: data
+        })
+      })
+      // var that = this
+      // $.ajax({
+      //   type: "PUT",
+      //   url: "/items",
+      //   contentType: "application/json",
+      //   data: JSON.stringify(item),
+      //   success: function(data) {
+      //     that.setState({
+      //       masterList: JSON.parse(data)
+      //     })
+      //   },
+      //   error: function(err) {
+      //     console.log("err: ", err)
+      //   }
+      // })
     }
 
     this.addItem = (newItem) => {
@@ -136,18 +176,7 @@ class App extends React.Component {
     //   })
     // }
 
-    this.fetchAllList = () => {
-      var that = this;
-      fetch('/lists')
-      .then(function(res) {
-        return res.json()
-      })
-      .then(function(data) {
-        that.setState({
-          navList: data
-        })
-      })
-    }
+
   }
 
   render() {
