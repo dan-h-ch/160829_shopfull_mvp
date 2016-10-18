@@ -75,13 +75,7 @@ class App extends React.Component {
       .then((data) => {
         this.setState({
           masterList: data
-        }, function() {
-          // this is callback to setState - ideally should implement it as a promise
-          var displayList = this.state.masterList.filter((entry) => entry.listid === this.state.listid && entry.deleted === false)
-          this.setState({
-            displayList: displayList
-          })
-        })
+        }, function() {this.makeDisplayData()})
       })
     }
 
@@ -98,12 +92,7 @@ class App extends React.Component {
       .then((data) => {
         this.setState({
           masterList: data
-        }, function() {
-          var displayList = this.state.masterList.filter((entry) => entry.listid === this.state.listid && entry.deleted === false)
-          this.setState({
-            displayList: displayList
-          })
-        })
+        }, function() {this.makeDisplayData()})
       })
     }
 
@@ -114,16 +103,16 @@ class App extends React.Component {
       })
       // set state with it
       .then((data) => {
-        console.log(data)
         this.setState({
           masterList: data
-        }, function() {
-          // this is callback to setState - ideally should implement it as a promise
-          var displayList = this.state.masterList.filter((entry) => entry.listid === this.state.listid && entry.deleted === false)
-          this.setState({
-            displayList: displayList
-          })
-        })
+        }, function() {this.makeDisplayData()})
+      })
+    }
+
+    this.makeDisplayData = (listid = this.state.listid, deletedStatus = false) => {
+      var displayList = this.state.masterList.filter((entry) => entry.listid === listid && entry.deleted === deletedStatus)
+      this.setState({
+        displayList: displayList
       })
     }
 
