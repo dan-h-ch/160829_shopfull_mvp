@@ -12,7 +12,6 @@ class TodoForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault()
     var time = new Date()
-    console.log(time)
     var preparedSubmit = {
       itemname: this.state.submitName,
       quantity: this.state.submitQuant,

@@ -13,7 +13,6 @@ class App extends React.Component {
     }
 
     this.updateListid = (id) => {
-      console.log("filterin...")
       var displayList = this.state.masterList.filter((entry) => entry.listid === id)
       this.setState({
         listid: id,
@@ -67,20 +66,25 @@ class App extends React.Component {
 
     this.addItem = (newItem) => {
       var that = this
-      $.ajax({
-        type: "POST",
-        url: "/items",
-        contentType: "application/json",
-        data: JSON.stringify(newItem),
-        success: function(data) {
-          console.log(data)
-          that.setState({
-            masterList: data
-          })
+      fetch('/items', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
         },
-        error: function(err) {
-          console.log("err: ", err)
-        }
+        body: JSON.stringify(newItem)
+      })
+      .then((data) => data.json())
+      .then((data) => {
+        this.setState({
+          masterList: data
+        }, function() {
+          // this is callback to setState - ideally should implement it as a promise
+          var displayList = this.state.masterList.filter((entry) => entry.listid === this.state.listid)
+          this.setState({
+            displayList: displayList
+          })
+        })
       })
     }
 
@@ -104,18 +108,18 @@ class App extends React.Component {
     }
 
     this.fetchData = () => {
-      var that = this;
       fetch('/items')
       .then(function(res) {
         return res.json()
       })
-      .then(function(data) {
+      // set state with it
+      .then((data) => {
         console.log(data)
-        that.setState({
+        this.setState({
           masterList: data
         }, function() {
           // this is callback to setState - ideally should implement it as a promise
-          var displayList = this.state.masterList.filter((entry) => entry.listid === 1)
+          var displayList = this.state.masterList.filter((entry) => entry.listid === this.state.listid)
           this.setState({
             displayList: displayList
           })
@@ -150,17 +154,14 @@ class App extends React.Component {
         return res.json()
       })
       .then(function(data) {
-        console.log(data)
         that.setState({
           navList: data
         })
-        return data
       })
     }
   }
 
   render() {
-    console.log(this.state.displayList)
     return (
       <div>
         <NavBar navList={this.state.navList} addList={this.addList} updateListid={this.updateListid}/>
@@ -175,14 +176,8 @@ class App extends React.Component {
     this.fetchData();
 
     this.fetchAllList();
-
-    // this is happeningbefore state is set so no data is showing up
-    // this.updateListid(1);
   }
 
-  componentDidMount() {
-    this.updateListid(1);
-  }
 }
 
 
