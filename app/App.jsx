@@ -86,21 +86,19 @@ class App extends React.Component {
     }
 
     this.deleteItem = (item) => {
-      var that = this
-      $.ajax({
-        type: "DELETE",
-        url: "/items",
-        contentType: "application/json",
-        data: JSON.stringify(item),
-        success: function(data) {
-          console.log(data)
-          that.setState({
-            masterList: data
-          })
+      fetch('/items', {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
         },
-        error: function(err) {
-          console.log("err: ", err)
-        }
+        body: JSON.stringify(item)
+      })
+      .then((data) => data.json())
+      .then((data) => {
+        this.setState({
+          masterList: data
+        })
       })
     }
 
