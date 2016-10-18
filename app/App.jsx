@@ -35,7 +35,7 @@ class App extends React.Component {
         data: JSON.stringify(item),
         success: function(data) {
           that.setState({
-            masterList: data
+            masterList: JSON.parse(data)
           })
         },
         error: function(err) {

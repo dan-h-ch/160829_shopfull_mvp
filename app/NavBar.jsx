@@ -38,7 +38,7 @@ class NavBar extends React.Component {
     return (
       <div className="nav-container">
         <ul className="nav-bar">
-          {this.props.navList.map((list) => <NavBarItem navList={list} updateListid={this.props.updateListid}/>)}
+          {this.props.navList.map((list) => <NavBarItem key={list.id} navList={list} updateListid={this.props.updateListid}/>)}
           <li>
             <form className="submitForm" onSubmit={this.handleSubmit.bind(this)}>
               <input type="text" placeholder="newlist..." value={this.state.submitListName} onChange={(e) => this.updateListName(e)} />
