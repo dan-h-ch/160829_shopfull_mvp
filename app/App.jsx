@@ -64,7 +64,6 @@ class App extends React.Component {
 /////   ITEM RELATED     ///////
 ///////////////////////////////
 
-    // lots of smells with these ajax calls
     this.updateQuant = (item, addOrSub) => {
       if (addOrSub === "add") {
         item.quantity++
@@ -85,21 +84,6 @@ class App extends React.Component {
           masterList: data
         })
       })
-      // var that = this
-      // $.ajax({
-      //   type: "PUT",
-      //   url: "/items",
-      //   contentType: "application/json",
-      //   data: JSON.stringify(item),
-      //   success: function(data) {
-      //     that.setState({
-      //       masterList: JSON.parse(data)
-      //     })
-      //   },
-      //   error: function(err) {
-      //     console.log("err: ", err)
-      //   }
-      // })
     }
 
     this.addItem = (newItem) => {

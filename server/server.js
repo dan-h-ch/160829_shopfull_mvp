@@ -39,11 +39,12 @@ app.get('/items', function(req, res) {
 
 // do i want to actually delete the item?
 app.delete('/items', function(req, res) {
-  console.log('about to delete... ', req.body)
-  var searchId = req.body.id
-  db.knex('items').select().where("id", searchId)
+  // console.log('about to delete... ', req.body)
+  // var searchId = req.body.id
+  db.knex('items').select().where("id", req.body.id)
   .update({
-    deleted: true
+    deleted: true,
+    updated_at: new Date ()
   })
   .then(function() {
     sendAllItem(req, res)
@@ -67,7 +68,8 @@ app.post('/lists', function(req, res) {
 })
 
 app.put('/items', function(req, res) {
-  console.log('about to update...', req.body)
+  // console.log('about to update...', req.body)
+  req.body.updated_at = new Date()
   db.knex('items').where('id', req.body.id).update(req.body)
   .then(function() {
     sendAllItem(req, res)
