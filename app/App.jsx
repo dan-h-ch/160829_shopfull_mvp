@@ -1,14 +1,19 @@
+// import 'whatwg-fetch';
+
 class App extends React.Component {
+
   constructor(props) {
     super(props)
 
     this.state = {
       masterList: [],
       navList: [],
-      listid: 1 //default - need to change it based on when user logs in
+      listid: 1,
+      displayList: [] //default - need to change it based on when user logs in
     }
 
     this.updateListid = (id) => {
+      console.log("filterin...")
       var displayList = this.state.masterList.filter((entry) => entry.listid === id)
       this.setState({
         listid: id,
@@ -98,18 +103,23 @@ class App extends React.Component {
       })
     }
 
-    this.fetchData = (options, callback) => {
-      console.log("about to fetch data")
-      $.ajax({
-        type: "GET",
-        url: "/items",
-        contentType: "application/json",
-        success: function(data) {
-          callback(data)
-        },
-        error: function(err) {
-          console.log("err: ", err)
-        }
+    this.fetchData = () => {
+      var that = this;
+      fetch('/items')
+      .then(function(res) {
+        return res.json()
+      })
+      .then(function(data) {
+        console.log(data)
+        that.setState({
+          masterList: data
+        }, function() {
+          // this is callback to setState - ideally should implement it as a promise
+          var displayList = this.state.masterList.filter((entry) => entry.listid === 1)
+          this.setState({
+            displayList: displayList
+          })
+        })
       })
     }
 
@@ -135,25 +145,22 @@ class App extends React.Component {
 
     this.fetchAllList = () => {
       var that = this;
-      $.ajax({
-        type: "GET",
-        url: "/lists",
-        contentType: "application/json",
-        success: function(data) {
-          console.log(data)
-          that.setState({
-            navList: data
-          })
-        },
-        error: function(err) {
-          console.log("err: ", err)
-        }
+      fetch('/lists')
+      .then(function(res) {
+        return res.json()
+      })
+      .then(function(data) {
+        console.log(data)
+        that.setState({
+          navList: data
+        })
+        return data
       })
     }
-
   }
 
   render() {
+    console.log(this.state.displayList)
     return (
       <div>
         <NavBar navList={this.state.navList} addList={this.addList} updateListid={this.updateListid}/>
@@ -165,14 +172,15 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    this.fetchData({}, function(data) {
-      this.setState({
-        masterList: data
-      })
-    }.bind(this));
+    this.fetchData();
 
     this.fetchAllList();
 
+    // this is happeningbefore state is set so no data is showing up
+    // this.updateListid(1);
+  }
+
+  componentDidMount() {
     this.updateListid(1);
   }
 }
