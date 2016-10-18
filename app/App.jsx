@@ -34,7 +34,6 @@ class App extends React.Component {
         contentType: "application/json",
         data: JSON.stringify(item),
         success: function(data) {
-          console.log(data)
           that.setState({
             masterList: data
           })
@@ -46,26 +45,23 @@ class App extends React.Component {
     }
 
     this.addList = (newList) => {
-      var that = this
-      $.ajax({
-        type: "POST",
-        url: "/lists",
-        contentType: "application/json",
-        data: JSON.stringify(newList),
-        success: function(data) {
-          console.log(data)
-          that.setState({
-            navList: data
-          })
+      fetch('/lists', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
         },
-        error: function(err) {
-          console.log("err: ", err)
-        }
+        body: JSON.stringify(newList)
+      })
+      .then((data) => data.json())
+      .then((data) => {
+        this.setState({
+          navList: data
+        })
       })
     }
 
     this.addItem = (newItem) => {
-      var that = this
       fetch('/items', {
         method: 'POST',
         headers: {

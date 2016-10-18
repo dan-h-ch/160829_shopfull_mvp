@@ -101,7 +101,7 @@ var sendAllItem = function (req, res) {
 var sendAllLists = function (req, res) {
   db.knex('lists').select()
   .then(function(data) {
-    res.status(200).send(data)
+    res.status(200).send(JSON.stringify(data))
   })
 }
 
