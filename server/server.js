@@ -42,7 +42,9 @@ app.delete('/items', function(req, res) {
   console.log('about to delete... ', req.body)
   var searchId = req.body.id
   db.knex('items').select().where("id", searchId)
-  .del()
+  .update({
+    deleted: true
+  })
   .then(function() {
     sendAllItem(req, res)
   })

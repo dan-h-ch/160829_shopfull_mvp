@@ -77,7 +77,7 @@ class App extends React.Component {
           masterList: data
         }, function() {
           // this is callback to setState - ideally should implement it as a promise
-          var displayList = this.state.masterList.filter((entry) => entry.listid === this.state.listid)
+          var displayList = this.state.masterList.filter((entry) => entry.listid === this.state.listid && entry.deleted === false)
           this.setState({
             displayList: displayList
           })
@@ -98,6 +98,11 @@ class App extends React.Component {
       .then((data) => {
         this.setState({
           masterList: data
+        }, function() {
+          var displayList = this.state.masterList.filter((entry) => entry.listid === this.state.listid && entry.deleted === false)
+          this.setState({
+            displayList: displayList
+          })
         })
       })
     }
@@ -114,7 +119,7 @@ class App extends React.Component {
           masterList: data
         }, function() {
           // this is callback to setState - ideally should implement it as a promise
-          var displayList = this.state.masterList.filter((entry) => entry.listid === this.state.listid)
+          var displayList = this.state.masterList.filter((entry) => entry.listid === this.state.listid && entry.deleted === false)
           this.setState({
             displayList: displayList
           })
