@@ -18,25 +18,26 @@ class App extends React.Component {
 /////   LIST RELATED     ///////
 ///////////////////////////////
     
-    this.fetchAllList = () => {
-      var that = this;
-      fetch('/lists')
-      .then(function(res) {
-        return res.json()
-      })
-      .then(function(data) {
-        that.setState({
+    this.fetchLists = () => {
+      // userid is being passed on in URL, ultimately refactor our when auth token is in place
+      var getUrl = `/lists/${this.state.userid}`
+      fetch(getUrl)
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({
           navList: data
         })
       })
     }
 
+    // visually what do you see, does not change masterList or navList
     this.updateListid = (id) => {
       this.setState({
         listid: id
       }, function() {this.makeDisplayData()})
     }
 
+    // posts a new list and gets all lists allows - follow route to see
     this.addList = (newList) => {
       fetch('/lists', {
         method: 'POST',
@@ -118,8 +119,11 @@ class App extends React.Component {
       })
     }
 
-    this.fetchData = () => {
-      fetch('/items')
+    this.fetchItems = () => {
+      console.log('trying to get all data')
+      var getUrl = `/items/${this.state.userid}`
+      console.log(getUrl)
+      fetch(getUrl)
       .then(function(res) {
         return res.json()
       })
@@ -172,10 +176,9 @@ class App extends React.Component {
     )
   }
 
-  componentWillMount() {
-    this.fetchData();
-
-    this.fetchAllList();
+  componentDidMount() {
+    this.fetchLists();
+    this.fetchItems();
   }
 
 }

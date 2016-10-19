@@ -6,8 +6,8 @@ module.exports = function(app, express){
 /////   ROUTES           ///////
 ///////////////////////////////
 
-  app.get('/items', function(req, res) {
-    sendAllItem(req, res)
+  app.get('/items/:userid', function(req, res) {
+    sendAllItem(req, res, req.params.userid)
   })
 
   // do i want to actually delete the item?
@@ -37,7 +37,8 @@ module.exports = function(app, express){
     console.log('about to add list... ', req.body)
     db.knex.insert(req.body).into('lists')
     .then(function() {
-      sendAllLists(req, res)
+      // assume create_userid of new list is active session list
+      sendAllLists(req, res, req.body.create_userid)
     })
   })
 
@@ -59,8 +60,8 @@ module.exports = function(app, express){
   //   })
   // })
 
-  app.get('/lists', function(req, res) {
-    sendAllLists(req, res)
+  app.get('/lists/:userid', function(req, res) {
+    sendAllLists(req, res, req.params.userid)
   })
 
 
@@ -76,9 +77,10 @@ module.exports = function(app, express){
   }
 
 
-  var sendAllLists = function (req, res) {
-    db.knex('lists').select()
+  var sendAllLists = function (req, res, userid) {
+    db.knex('lists').where('create_userid', userid)
     .then(function(data) {
+      console.log(data)
       res.status(200).send(JSON.stringify(data))
     })
   }

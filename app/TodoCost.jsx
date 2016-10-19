@@ -9,7 +9,10 @@ class TodoCost extends React.Component{
       return memo + (val.quantity*val.cost)}, 0)
 
     return (
-      <div className="final-cost">Total Cost For This Project: ${totCost.toFixed(2)}</div>
+      <div>
+        <div className="final-cost">Total Cost For This Project: ${totCost.toFixed(2)}</div>
+        <div>delete lsit </div>
+      </div>
     )
   }
 
