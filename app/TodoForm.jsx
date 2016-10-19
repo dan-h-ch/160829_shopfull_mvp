@@ -16,7 +16,7 @@ class TodoForm extends React.Component {
       itemname: this.state.submitName,
       quantity: this.state.submitQuant,
       listid: this.props.listid,
-      userid: 0,
+      item_create_userid: this.props.userid,
       cost: this.state.submitCost,
       created_at: new Date(),
       updated_at: new Date()

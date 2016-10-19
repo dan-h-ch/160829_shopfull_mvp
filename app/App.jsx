@@ -10,7 +10,7 @@ class App extends React.Component {
       navList: [],
       displayList: [],
       listid: 1, //default - need to change it based on when user logs in
-      userid: 2 //temporarily
+      userid: 1 //temporarily
     }
 
 
@@ -165,8 +165,8 @@ class App extends React.Component {
     return (
       <div>
         <NavBar userid={this.state.userid} navList={this.state.navList} addList={this.addList} updateListid={this.updateListid}/>
-        <TodoForm addItem={this.addItem} listid={this.state.listid}/>
-        <TodoList todoList={this.state.displayList} deleteItem={this.deleteItem} updateQuant={this.updateQuant}  />
+        <TodoForm addItem={this.addItem} listid={this.state.listid} userid={this.state.userid}/>
+        <TodoList todoList={this.state.displayList} deleteItem={this.deleteItem} updateQuant={this.updateQuant} userid={this.state.userid} />
         <TodoCost todoList={this.state.displayList}/>
       </div>
     )

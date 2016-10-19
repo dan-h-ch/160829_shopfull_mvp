@@ -5,15 +5,21 @@ class TodoListItem extends React.Component{
   }
 
   handleClick(e) {
-    this.props.deleteItem(this.props.todoListItem)
+    var returnItem = this.props.todoListItem
+    returnItem.item_last_edit_userid = this.props.userid
+    this.props.deleteItem(returnItem)
   }
 
   increaseQuant(e) {
-    this.props.updateQuant(this.props.todoListItem, "add")
+    var returnItem = this.props.todoListItem
+    returnItem.item_last_edit_userid = this.props.userid
+    this.props.updateQuant(returnItem, "add")
   }
 
   decreaseQuant(e) {
-    this.props.updateQuant(this.props.todoListItem, "sub")
+    var returnItem = this.props.todoListItem
+    returnItem.item_last_edit_userid = this.props.userid
+    this.props.updateQuant(returnItem, "sub")
   }
 
   render() {

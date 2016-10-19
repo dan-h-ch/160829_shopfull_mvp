@@ -15,7 +15,7 @@ class NavBar extends React.Component {
     console.log(time)
     var preparedSubmit = {
       listname: this.state.submitListName,
-      userid: this.props.userid,
+      create_userid: this.props.userid,
       created_at: new Date(),
       updated_at: new Date()
     }

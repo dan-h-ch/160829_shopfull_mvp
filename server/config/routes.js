@@ -17,7 +17,8 @@ module.exports = function(app, express){
     db.knex('items').select().where("id", req.body.id)
     .update({
       deleted: true,
-      updated_at: new Date ()
+      updated_at: new Date (),
+      item_last_edit_userid : req.body.item_last_edit_userid
     })
     .then(function() {
       sendAllItem(req, res)
@@ -41,7 +42,7 @@ module.exports = function(app, express){
   })
 
   app.put('/items', function(req, res) {
-    // console.log('about to update...', req.body)
+    console.log('about to update...', req.body)
     req.body.updated_at = new Date()
     db.knex('items').where('id', req.body.id).update(req.body)
     .then(function() {
