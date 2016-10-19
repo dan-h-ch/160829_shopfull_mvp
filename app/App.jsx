@@ -32,11 +32,9 @@ class App extends React.Component {
     }
 
     this.updateListid = (id) => {
-      var displayList = this.state.masterList.filter((entry) => entry.listid === id)
       this.setState({
-        listid: id,
-        displayList: displayList
-      })
+        listid: id
+      }, function() {this.makeDisplayData()})
     }
 
     this.addList = (newList) => {
