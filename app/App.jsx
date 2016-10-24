@@ -2,6 +2,18 @@
 
 class App extends React.Component {
 
+  componentWillMount() {
+    // this.setState({
+    //   idToken: this.getIdToken()
+    // })
+    // this.lock = new Auth0Lock('eaDzLmALxb7fvxQhVKTkxW8rEDtMnGZD', 'danch.auth0.com')
+  }
+
+  componentDidMount() {
+    this.fetchLists();
+    this.fetchItems();
+  }
+
   constructor(props) {
     super(props)
 
@@ -142,6 +154,7 @@ class App extends React.Component {
       })
     }
 
+
     // // not being used
     // this.filterData = (filterObj) => {
     //   $.ajax({
@@ -162,24 +175,43 @@ class App extends React.Component {
     //   })
     // }
 
-
   }
+
+  // fetchItems() {
+  //   console.log('trying to get all data')
+  //   var getUrl = `/items/${this.state.userid}`
+  //   console.log(getUrl)
+  //   fetch(getUrl)
+  //   .then(function(res) {
+  //     return res.json()
+  //   })
+  //   // set state with it
+  //   .then((data) => {
+  //     this.setState({
+  //       masterList: data
+  //     }, function() {this.makeDisplayData()})
+  //   })
+  // }
+
+  // makeDisplayData(listid = this.state.listid, deletedStatus = false) {
+  //   var displayList = this.state.masterList.filter((entry) => entry.listid === listid && entry.deleted === deletedStatus)
+  //   this.setState({
+  //     displayList: displayList
+  //   })
+  // }
 
   render() {
     return (
       <div>
         <NavBar userid={this.state.userid} navList={this.state.navList} addList={this.addList} updateListid={this.updateListid}/>
         <TodoForm addItem={this.addItem} listid={this.state.listid} userid={this.state.userid}/>
-        <TodoList todoList={this.state.displayList} deleteItem={this.deleteItem} updateQuant={this.updateQuant} userid={this.state.userid} />
+        <TodoList lock={this.lock} todoList={this.state.displayList} deleteItem={this.deleteItem} updateQuant={this.updateQuant} userid={this.state.userid} />
         <TodoCost todoList={this.state.displayList}/>
       </div>
     )
   }
 
-  componentDidMount() {
-    this.fetchLists();
-    this.fetchItems();
-  }
+
 
 }
 

@@ -25,7 +25,7 @@ module.exports = function(app, express){
       item_last_edit_userid : req.body.item_last_edit_userid
     })
     .then(function() {
-      sendAllItem(req, res)
+      sendAllItem(req, res, req.body.id)
     })
   })
 
@@ -45,7 +45,7 @@ module.exports = function(app, express){
     req.body.updated_at = new Date()
     db.knex('items').where('id', req.body.id).update(req.body)
     .then(function() {
-      sendAllItem(req, res)
+      sendAllItem(req, res, req.body.id)
     })
   })
 
