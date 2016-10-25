@@ -11,7 +11,21 @@ class App extends React.Component {
     this.fetchItems();
     this.setState({
       idToken: this.getIdToken()
-    })
+    }, () => {
+      // set more state stuff
+      this.lock.getProfile(this.state.idToken, (err, prof)  => {
+        this.setState({
+          userid: prof.user_id,
+          profile: prof
+        })
+        console.log(this.state.userid)
+        console.log(this.state.profile)
+        var userData = {}
+        userData.id = prof.user_id
+        userData.email = prof.email
+        this.addUser(userData)
+      })
+    });
   }
 
   constructor(props) {
@@ -22,7 +36,7 @@ class App extends React.Component {
       navList: [],
       displayList: [],
       listid: 1, //default - need to change it based on when user logs in
-      userid: 2 //temporarily
+      userid: '' //temporarily
     }
 
 
@@ -153,6 +167,20 @@ class App extends React.Component {
 
   }
 
+  addUser(userData) {
+    fetch(`/users`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(userData)
+    })
+    .then((body) => body.json())
+    .then((res) => console.log(res))
+    .catch((err) => console.log("err0r", err))
+  }
+
   fetchItems() {
     var getUrl = `/items/${this.state.userid}`
     fetch(getUrl)
@@ -175,15 +203,12 @@ class App extends React.Component {
   }
 
   showLock() {
-    console.log("this", this)
-    console.log("lock", this.lock)
     this.lock.show()
   }
 
   getIdToken() {
     // First, check if there is already a JWT in local storage
     var idToken = localStorage.getItem('id_token');
-    console.log(this.lock)
     var authHash = this.lock.parseHash(window.location.hash);
     // If there is no JWT in local storage and there is one in the URL hash,
     // save it in local storage
@@ -202,11 +227,20 @@ class App extends React.Component {
 
   render() {
     if (this.state.idToken) {
-      this.lock.getProfile(this.state.idToken, (err, prof) => {
-        this.setState({
-          userid: prof.user_id
-        })
-      })
+      // this.lock.getProfile(this.state.idToken, (err, prof)  => {
+      //   // // keeps rendering because i keep setting it
+      //   // this.setState({
+      //   //   userid: prof.user_id,
+      //   //   profile: prof
+      //   // })
+      //   console.log(this.state.userid)
+      //   var userData = {}
+      //   userData.id = prof.user_id
+      //   userData.email = prof.email
+      //   // this.addUser(userData)
+      //   // if user id exists already mostly in place
+      //   // if userid doesn't exist create entry
+      // })
       return (
         <div>
           <NavBar userid={this.state.userid} navList={this.state.navList} addList={this.addList} updateListid={this.updateListid}/>

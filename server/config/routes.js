@@ -78,6 +78,29 @@ module.exports = function(app, express){
   //   })
   // })
 
+  /////////////////////////////////
+  /////   USERS            ///////
+  ///////////////////////////////
+
+  app.post('/users', function(req, res) {
+    console.log('looking for... ', req.body)
+    db.knex('users').where('id', req.body.id)
+    .then(function(data) {
+      if (data.length === 0) {
+        console.log('about to add user... ', req.body)
+        db.knex.insert(req.body).into('users')
+        .then(function() {
+          console.log('user added...', req.body)
+          res.status(201).send()
+        })
+      } else {
+        console.log('user already exists...', req.body)
+        res.status(409).send()
+      }
+    })
+  })
+
+
 /////////////////////////////////
 /////   DB HELPERS       ///////
 ///////////////////////////////
@@ -95,6 +118,7 @@ module.exports = function(app, express){
 
 
   var sendAllLists = function (req, res, userid) {
+    console.log('getting all lists with userid', userid)
     db.knex('lists').where('create_userid', userid)
     .then(function(data) {
       console.log(data)

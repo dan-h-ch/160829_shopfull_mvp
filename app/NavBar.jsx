@@ -19,6 +19,7 @@ class NavBar extends React.Component {
       created_at: new Date(),
       updated_at: new Date()
     }
+    console.log(preparedSubmit)
     this.props.addList(preparedSubmit)
     this.setState({
       // would be cool to have randomizer for the default values
