@@ -201,15 +201,27 @@ class App extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <a onClick={(e) => this.showLock()}>Sign In</a>
-        <NavBar userid={this.state.userid} navList={this.state.navList} addList={this.addList} updateListid={this.updateListid}/>
-        <TodoForm addItem={this.addItem} listid={this.state.listid} userid={this.state.userid}/>
-        <TodoList lock={this.lock} todoList={this.state.displayList} deleteItem={this.deleteItem} updateQuant={this.updateQuant} userid={this.state.userid} />
-        <TodoCost todoList={this.state.displayList}/>
-      </div>
-    )
+    if (this.state.idToken) {
+      this.lock.getProfile(this.state.idToken, (err, prof) => {
+        this.setState({
+          userid: prof.user_id
+        })
+      })
+      return (
+        <div>
+          <NavBar userid={this.state.userid} navList={this.state.navList} addList={this.addList} updateListid={this.updateListid}/>
+          <TodoForm addItem={this.addItem} listid={this.state.listid} userid={this.state.userid}/>
+          <TodoList lock={this.lock} todoList={this.state.displayList} deleteItem={this.deleteItem} updateQuant={this.updateQuant} userid={this.state.userid} />
+          <TodoCost todoList={this.state.displayList}/>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <a onClick={(e) => this.showLock()}>Sign In</a>
+        </div>
+      )
+    }
   }
 
 
