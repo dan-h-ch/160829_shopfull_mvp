@@ -25,7 +25,8 @@ module.exports = function(app, express){
       item_last_edit_userid : req.body.item_last_edit_userid
     })
     .then(function() {
-      sendAllItem(req, res, req.body.id)
+      // assuming last user edit is the account logged in
+      sendAllItem(req, res, req.body.item_last_edit_userid)
     })
   })
 
