@@ -3,15 +3,15 @@
 class App extends React.Component {
 
   componentWillMount() {
-    // this.setState({
-    //   idToken: this.getIdToken()
-    // })
-    // this.lock = new Auth0Lock('eaDzLmALxb7fvxQhVKTkxW8rEDtMnGZD', 'danch.auth0.com')
+    this.lock = new Auth0Lock('eaDzLmALxb7fvxQhVKTkxW8rEDtMnGZD', 'danch.auth0.com')
   }
 
   componentDidMount() {
     this.fetchLists();
     this.fetchItems();
+    this.setState({
+      idToken: this.getIdToken()
+    })
   }
 
   constructor(props) {
@@ -72,7 +72,7 @@ class App extends React.Component {
     }
 
 /////////////////////////////////
-/////   ITEM RELATED     ///////
+/////   ITEM CHANGES     ///////
 ///////////////////////////////
 
     this.updateQuant = (item, addOrSub) => {
@@ -131,30 +131,6 @@ class App extends React.Component {
       })
     }
 
-    this.fetchItems = () => {
-      console.log('trying to get all data')
-      var getUrl = `/items/${this.state.userid}`
-      console.log(getUrl)
-      fetch(getUrl)
-      .then(function(res) {
-        return res.json()
-      })
-      // set state with it
-      .then((data) => {
-        this.setState({
-          masterList: data
-        }, function() {this.makeDisplayData()})
-      })
-    }
-
-    this.makeDisplayData = (listid = this.state.listid, deletedStatus = false) => {
-      var displayList = this.state.masterList.filter((entry) => entry.listid === listid && entry.deleted === deletedStatus)
-      this.setState({
-        displayList: displayList
-      })
-    }
-
-
     // // not being used
     // this.filterData = (filterObj) => {
     //   $.ajax({
@@ -177,32 +153,57 @@ class App extends React.Component {
 
   }
 
-  // fetchItems() {
-  //   console.log('trying to get all data')
-  //   var getUrl = `/items/${this.state.userid}`
-  //   console.log(getUrl)
-  //   fetch(getUrl)
-  //   .then(function(res) {
-  //     return res.json()
-  //   })
-  //   // set state with it
-  //   .then((data) => {
-  //     this.setState({
-  //       masterList: data
-  //     }, function() {this.makeDisplayData()})
-  //   })
-  // }
+  fetchItems() {
+    var getUrl = `/items/${this.state.userid}`
+    fetch(getUrl)
+    .then(function(res) {
+      return res.json()
+    })
+    // set state with it
+    .then((data) => {
+      this.setState({
+        masterList: data
+      }, function() {this.makeDisplayData()})
+    })
+  }
 
-  // makeDisplayData(listid = this.state.listid, deletedStatus = false) {
-  //   var displayList = this.state.masterList.filter((entry) => entry.listid === listid && entry.deleted === deletedStatus)
-  //   this.setState({
-  //     displayList: displayList
-  //   })
-  // }
+  makeDisplayData(listid = this.state.listid, deletedStatus = false) {
+    var displayList = this.state.masterList.filter((entry) => entry.listid === listid && entry.deleted === deletedStatus)
+    this.setState({
+      displayList: displayList
+    })
+  }
+
+  showLock() {
+    console.log("this", this)
+    console.log("lock", this.lock)
+    this.lock.show()
+  }
+
+  getIdToken() {
+    // First, check if there is already a JWT in local storage
+    var idToken = localStorage.getItem('id_token');
+    console.log(this.lock)
+    var authHash = this.lock.parseHash(window.location.hash);
+    // If there is no JWT in local storage and there is one in the URL hash,
+    // save it in local storage
+    if (!idToken && authHash) {
+      if (authHash.id_token) {
+        idToken = authHash.id_token
+        localStorage.setItem('id_token', authHash.id_token);
+      }
+      if (authHash.error) {
+        // Handle any error conditions
+        console.log("Error signing in", authHash);
+      }
+    }
+    return idToken;
+  }
 
   render() {
     return (
       <div>
+        <a onClick={(e) => this.showLock()}>Sign In</a>
         <NavBar userid={this.state.userid} navList={this.state.navList} addList={this.addList} updateListid={this.updateListid}/>
         <TodoForm addItem={this.addItem} listid={this.state.listid} userid={this.state.userid}/>
         <TodoList lock={this.lock} todoList={this.state.displayList} deleteItem={this.deleteItem} updateQuant={this.updateQuant} userid={this.state.userid} />
