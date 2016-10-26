@@ -7,8 +7,8 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchLists();
-    this.fetchItems();
+    // this.fetchLists();
+    // this.fetchItems();
     this.setState({
       idToken: this.getIdToken()
     }, () => {
@@ -17,6 +17,9 @@ class App extends React.Component {
         this.setState({
           userid: prof.user_id,
           profile: prof
+        }, () => {
+          this.fetchLists();
+          this.fetchItems();
         })
         console.log(this.state.userid)
         console.log(this.state.profile)
@@ -227,20 +230,6 @@ class App extends React.Component {
 
   render() {
     if (this.state.idToken) {
-      // this.lock.getProfile(this.state.idToken, (err, prof)  => {
-      //   // // keeps rendering because i keep setting it
-      //   // this.setState({
-      //   //   userid: prof.user_id,
-      //   //   profile: prof
-      //   // })
-      //   console.log(this.state.userid)
-      //   var userData = {}
-      //   userData.id = prof.user_id
-      //   userData.email = prof.email
-      //   // this.addUser(userData)
-      //   // if user id exists already mostly in place
-      //   // if userid doesn't exist create entry
-      // })
       return (
         <div>
           <NavBar userid={this.state.userid} navList={this.state.navList} addList={this.addList} updateListid={this.updateListid}/>
