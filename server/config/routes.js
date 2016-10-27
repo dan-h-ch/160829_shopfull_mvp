@@ -107,7 +107,7 @@ module.exports = function(app, express){
         })
       } else {
         console.log('user already exists...', req.body)
-        res.status(409).send()
+        res.status(409).send(JSON.stringify('user already exists'))
       }
     })
   })

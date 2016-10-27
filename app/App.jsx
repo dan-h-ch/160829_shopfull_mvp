@@ -3,12 +3,10 @@
 class App extends React.Component {
 
   componentWillMount() {
-    this.lock = new Auth0Lock('eaDzLmALxb7fvxQhVKTkxW8rEDtMnGZD', 'danch.auth0.com')
+    this.lock = new Auth0LockPasswordless('eaDzLmALxb7fvxQhVKTkxW8rEDtMnGZD', 'danch.auth0.com')
   }
 
   componentDidMount() {
-    // this.fetchLists();
-    // this.fetchItems();
     this.setState({
       idToken: this.getIdToken()
     }, () => {
@@ -249,7 +247,27 @@ class App extends React.Component {
   }
 
   showLock() {
-    this.lock.show()
+    // Open the lock in Email Code mode with the ability to handle the authentication in page
+    this.lock.emailcode((err, profile, id_token, state) => {
+      if (!err) {
+        // set JWT on localstorage
+        localStorage.setItem('id_token', id_token);
+        this.setState({
+          userid: profile.user_id,
+          profile: profile,
+          // relies on local storage, triggers render()
+          idToken: this.getIdToken()
+        }, () => {
+          this.fetchLists();
+          this.fetchItems();
+        })
+        // add user to db
+        var userData = {}
+        userData.id = profile.user_id
+        userData.email = profile.email
+        this.addUser(userData)
+      }
+    });
   }
 
   getIdToken() {
