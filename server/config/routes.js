@@ -69,6 +69,18 @@ module.exports = function(app, express){
     })
   })
 
+  app.delete('/lists', function(req, res) {
+    console.log('about to delete list... ', req.body)
+    db.knex('lists').select().where('id', req.body.id)
+    .update({
+      deleted: true,
+      updated_at: new Date ()
+    })
+    .then(function() {
+      sendAllLists(req, res, req.body.userid)
+    })
+  })
+
   // For filter
   // app.post('/filter', function(req, res) {
   //   console.log('about to filter... ', req.body)
@@ -119,7 +131,10 @@ module.exports = function(app, express){
 
   var sendAllLists = function (req, res, userid) {
     console.log('getting all lists with userid', userid)
-    db.knex('lists').where('create_userid', userid)
+    db.knex('lists').where({
+      'deleted': false,
+      'create_userid': userid,
+    }).andWhere('create_userid', userid)
     .then(function(data) {
       console.log(data)
       res.status(200).send(JSON.stringify(data))

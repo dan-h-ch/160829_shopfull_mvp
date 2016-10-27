@@ -86,8 +86,21 @@ class App extends React.Component {
       })
     }
 
-    this.deleteList = (listid) => {
-
+    this.deleteList = (list) => {
+      fetch('/lists', {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(list)
+      })
+      .then((data) => data.json())
+      .then((data) => {
+        this.setState({
+          navList: data
+        }, function() {this.makeDisplayData()})
+      })
     }
 
 /////////////////////////////////
@@ -150,6 +163,8 @@ class App extends React.Component {
       })
     }
 
+
+
     // // not being used
     // this.filterData = (filterObj) => {
     //   $.ajax({
@@ -171,6 +186,23 @@ class App extends React.Component {
     // }
 
   }
+
+  // deleteItem(item) {
+  //   fetch('/items', {
+  //     method: 'DELETE',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(item)
+  //   })
+  //   .then((data) => data.json())
+  //   .then((data) => {
+  //     this.setState({
+  //       masterList: data
+  //     }, function() {this.makeDisplayData()})
+  //   })
+  // }
 
   addUser(userData) {
     fetch(`/users`, {
@@ -200,6 +232,7 @@ class App extends React.Component {
     })
   }
 
+  // got all items and filter for deleted items
   makeDisplayData(listid = this.state.listid, deletedStatus = false) {
     var displayList = this.state.masterList.filter((entry) => entry.listid === listid && entry.deleted === deletedStatus)
     this.setState({
@@ -237,7 +270,7 @@ class App extends React.Component {
           <NavBar userid={this.state.userid} navList={this.state.navList} addList={this.addList} updateListid={this.updateListid}/>
           <TodoForm addItem={this.addItem} listid={this.state.listid} userid={this.state.userid}/>
           <TodoList lock={this.lock} todoList={this.state.displayList} deleteItem={this.deleteItem} updateQuant={this.updateQuant} userid={this.state.userid} />
-          <TodoCost todoList={this.state.displayList}/>
+          <TodoCost todoList={this.state.displayList} deleteList={this.deleteList} listid={this.state.listid} userid={this.state.userid}/>
         </div>
       )
     } else {

@@ -38,7 +38,8 @@ db.knex.schema.hasTable('lists').then(function(exists) {
       list.increments('id').primary();
       list.string('listname', 255);
       list.string('create_userid');
-      list.foreign('create_userid').references('users.id')
+      list.foreign('create_userid').references('users.id');
+      list.boolean('deleted').defaultTo('false');
       list.timestamps();
     }).then(function (table) {
       console.log('Created Table', table);
