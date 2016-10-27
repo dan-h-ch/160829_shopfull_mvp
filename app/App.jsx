@@ -21,8 +21,6 @@ class App extends React.Component {
           this.fetchLists();
           this.fetchItems();
         })
-        console.log(this.state.userid)
-        console.log(this.state.profile)
         var userData = {}
         userData.id = prof.user_id
         userData.email = prof.email
@@ -53,8 +51,12 @@ class App extends React.Component {
       fetch(getUrl)
       .then((res) => res.json())
       .then((data) => {
+        var displayListid = data.reduce((memo, val) => {
+          return Math.min(val.id, memo)
+        }, Infinity)
         this.setState({
-          navList: data
+          navList: data,
+          listid: displayListid
         })
       })
     }
