@@ -248,29 +248,7 @@ class App extends React.Component {
 
   showLock() {
     // Open the lock in Email Code mode with the ability to handle the authentication in page
-    // this.lock.emailcode((err, profile, id_token, state) => {
-    //   if (!err) {
-    //     // set JWT on localstorage
-    //     localStorage.setItem('id_token', id_token);
-    //     this.setState({
-    //       userid: profile.user_id,
-    //       profile: profile,
-    //       // relies on local storage, triggers render()
-    //       idToken: this.getIdToken()
-    //     }, () => {
-    //       this.fetchLists();
-    //       this.fetchItems();
-    //     })
-    //     // add user to db
-    //     var userData = {}
-    //     userData.id = profile.user_id
-    //     userData.email = profile.email
-    //     this.addUser(userData)
-    //   }
-    // });
-
-    // sms
-    this.lock.sms((err, profile, id_token, state) => {
+    this.lock.emailcode((err, profile, id_token, state) => {
       if (!err) {
         // set JWT on localstorage
         localStorage.setItem('id_token', id_token);
@@ -290,6 +268,28 @@ class App extends React.Component {
         this.addUser(userData)
       }
     });
+
+    // // sms
+    // this.lock.sms((err, profile, id_token, state) => {
+    //   if (!err) {
+    //     // set JWT on localstorage
+    //     localStorage.setItem('id_token', id_token);
+    //     this.setState({
+    //       userid: profile.user_id,
+    //       profile: profile,
+    //       // relies on local storage, triggers render()
+    //       idToken: this.getIdToken()
+    //     }, () => {
+    //       this.fetchLists();
+    //       this.fetchItems();
+    //     })
+    //     // add user to db
+    //     var userData = {}
+    //     userData.id = profile.user_id
+    //     userData.email = profile.email
+    //     this.addUser(userData)
+    //   }
+    // });
   }
 
   getIdToken() {
