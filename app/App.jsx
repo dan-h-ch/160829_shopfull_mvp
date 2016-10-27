@@ -80,9 +80,13 @@ class App extends React.Component {
       })
       .then((data) => data.json())
       .then((data) => {
+        var activeList = data.reduce((memo, val) => {
+          return Math.max(val.id, memo)
+        }, -Infinity)
         this.setState({
-          navList: data
-        })
+          navList: data,
+          listid: activeList
+        }, function() {this.makeDisplayData()})
       })
     }
 
@@ -97,8 +101,12 @@ class App extends React.Component {
       })
       .then((data) => data.json())
       .then((data) => {
+        var activeList = data.reduce((memo, val) => {
+          return Math.max(val.id, memo)
+        }, -Infinity)
         this.setState({
-          navList: data
+          navList: data,
+          listid: activeList
         }, function() {this.makeDisplayData()})
       })
     }
