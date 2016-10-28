@@ -24,9 +24,9 @@ class TodoForm extends React.Component {
     this.props.addItem(preparedSubmit)
     this.setState({
       // would be cool to have randomizer for the default values
-      submitName: "something shiny",
-      submitQuant: 1,
-      submitCost: 9.99
+      submitName: '',
+      submitQuant: 0,
+      submitCost: 0
     })
   }
 

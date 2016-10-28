@@ -23,7 +23,7 @@ class NavBar extends React.Component {
     this.props.addList(preparedSubmit)
     this.setState({
       // would be cool to have randomizer for the default values
-      submitListName: "new list",
+      submitListName: '',
       // submitQuant: 1,
       // submitCost: 9.99
     })
