@@ -12,8 +12,13 @@ class NavBarItem extends React.Component {
 
 
   render() {
+    if (this.props.listid === this.props.navList.id) {
+      var id = 'selectedList'
+    } else {
+      var id = 'notSelectedLIst'
+    }
     return (
-      <li className="nav-item" onClick={(e) => this.navFilter(e)}>{this.props.navList.listname}</li>
+      <li id={id} className="nav-item" onClick={(e) => this.navFilter(e)}>{this.props.navList.listname}</li>
     )
   }
 

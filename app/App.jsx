@@ -315,7 +315,7 @@ class App extends React.Component {
     if (this.state.idToken) {
       return (
         <div>
-          <NavBar userid={this.state.userid} navList={this.state.navList} addList={this.addList} updateListid={this.updateListid}/>
+          <NavBar userid={this.state.userid} navList={this.state.navList} addList={this.addList} updateListid={this.updateListid} listid={this.state.listid}/>
           <TodoForm addItem={this.addItem} listid={this.state.listid} userid={this.state.userid}/>
           <TodoList lock={this.lock} todoList={this.state.displayList} deleteItem={this.deleteItem} updateQuant={this.updateQuant} userid={this.state.userid} />
           <TodoCost todoList={this.state.displayList} deleteList={this.deleteList} listid={this.state.listid} userid={this.state.userid}/>
