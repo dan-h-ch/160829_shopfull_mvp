@@ -1,5 +1,3 @@
-// import 'whatwg-fetch';
-
 class App extends React.Component {
 
   componentWillMount() {
@@ -311,6 +309,13 @@ class App extends React.Component {
     return idToken;
   }
 
+  logOut() {
+    localStorage.removeItem('id_token')
+    this.setState({
+      idToken: ''
+    })
+  }
+
   render() {
     if (this.state.idToken) {
       return (
@@ -319,6 +324,9 @@ class App extends React.Component {
           <TodoForm addItem={this.addItem} listid={this.state.listid} userid={this.state.userid}/>
           <TodoList lock={this.lock} todoList={this.state.displayList} deleteItem={this.deleteItem} updateQuant={this.updateQuant} userid={this.state.userid} />
           <TodoCost todoList={this.state.displayList} deleteList={this.deleteList} listid={this.state.listid} userid={this.state.userid}/>
+          <div>
+            <a onClick={(e) => this.logOut()}>logout</a>
+          </div>
         </div>
       )
     } else {
