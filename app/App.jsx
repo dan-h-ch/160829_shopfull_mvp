@@ -1,3 +1,6 @@
+// import 'whatwg-fetch';
+// var jwt = require('jsonwebtoken')
+
 class App extends React.Component {
 
   componentWillMount() {
@@ -317,7 +320,11 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.state.idToken) {
+    if (this.state.idToken &&
+      // expire date on token exists
+      JSON.parse(window.atob(this.state.idToken.split('.')[1])).exp !== undefined &&
+      // expire date on token is more than current time
+      JSON.parse(window.atob(this.state.idToken.split('.')[1])).exp > Date.now()/1000) {
       return (
         <div>
           <NavBar userid={this.state.userid} navList={this.state.navList} addList={this.addList} updateListid={this.updateListid} listid={this.state.listid}/>
