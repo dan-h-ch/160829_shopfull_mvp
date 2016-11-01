@@ -4,7 +4,7 @@
 class App extends React.Component {
 
   componentWillMount() {
-    this.lock = new Auth0LockPasswordless('eaDzLmALxb7fvxQhVKTkxW8rEDtMnGZD', 'danch.auth0.com')
+    this.lock = new Auth0LockPasswordless('eaDzLmALxb7fvxQhVKTkxW8rEDtMnGZD', 'danch.auth0.com');
   }
 
   componentDidMount() {
@@ -12,24 +12,24 @@ class App extends React.Component {
       idToken: this.getIdToken()
     }, () => {
       // set more state stuff
-      this.lock.getProfile(this.state.idToken, (err, prof)  => {
+      this.lock.getProfile(this.state.idToken, (err, prof) => {
         this.setState({
           userid: prof.user_id,
           profile: prof
         }, () => {
           this.fetchLists();
           this.fetchItems();
-        })
-        var userData = {}
-        userData.id = prof.user_id
-        userData.email = prof.email
-        this.addUser(userData)
-      })
+        });
+        var userData = {};
+        userData.id = prof.user_id;
+        userData.email = prof.email;
+        this.addUser(userData);
+      });
     });
   }
 
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       masterList: [],
@@ -37,7 +37,7 @@ class App extends React.Component {
       displayList: [],
       listid: 1, //default - need to change it based on when user logs in
       userid: '' //temporarily
-    }
+    };
 
 
 /////////////////////////////////
@@ -46,26 +46,26 @@ class App extends React.Component {
     
     this.fetchLists = () => {
       // userid is being passed on in URL, ultimately refactor our when auth token is in place
-      var getUrl = `/lists/${this.state.userid}`
+      var getUrl = `/lists/${this.state.userid}`;
       fetch(getUrl)
       .then((res) => res.json())
       .then((data) => {
         var displayListid = data.reduce((memo, val) => {
-          return Math.min(val.id, memo)
-        }, Infinity)
+          return Math.min(val.id, memo);
+        }, Infinity);
         this.setState({
           navList: data,
           listid: displayListid
-        })
-      })
-    }
+        });
+      });
+    };
 
     // visually what do you see, does not change masterList or navList
     this.updateListid = (id) => {
       this.setState({
         listid: id
-      }, function() {this.makeDisplayData()})
-    }
+      }, function() { this.makeDisplayData(); });
+    };
 
     // posts a new list and gets all lists allows - follow route to see
     this.addList = (newList) => {
@@ -80,14 +80,14 @@ class App extends React.Component {
       .then((data) => data.json())
       .then((data) => {
         var activeList = data.reduce((memo, val) => {
-          return Math.max(val.id, memo)
-        }, -Infinity)
+          return Math.max(val.id, memo);
+        }, -Infinity);
         this.setState({
           navList: data,
           listid: activeList
-        }, function() {this.makeDisplayData()})
-      })
-    }
+        }, function() { this.makeDisplayData(); });
+      });
+    };
 
     this.deleteList = (list) => {
       fetch('/lists', {
@@ -101,24 +101,24 @@ class App extends React.Component {
       .then((data) => data.json())
       .then((data) => {
         var activeList = data.reduce((memo, val) => {
-          return Math.max(val.id, memo)
-        }, -Infinity)
+          return Math.max(val.id, memo);
+        }, -Infinity);
         this.setState({
           navList: data,
           listid: activeList
-        }, function() {this.makeDisplayData()})
-      })
-    }
+        }, function() { this.makeDisplayData(); });
+      });
+    };
 
 /////////////////////////////////
 /////   ITEM CHANGES     ///////
 ///////////////////////////////
 
     this.updateQuant = (item, addOrSub) => {
-      if (addOrSub === "add") {
-        item.quantity++
-      } else if (addOrSub === "sub") {
-        item.quantity = Math.max(item.quantity - 1, 0)
+      if (addOrSub === 'add') {
+        item.quantity++;
+      } else if (addOrSub === 'sub') {
+        item.quantity = Math.max(item.quantity - 1, 0);
       }
       fetch('/items', {
         method: 'PUT',
@@ -132,9 +132,9 @@ class App extends React.Component {
       .then((data) => {
         this.setState({
           masterList: data
-        })
-      })
-    }
+        });
+      });
+    };
 
     this.addItem = (newItem) => {
       fetch('/items', {
@@ -149,9 +149,9 @@ class App extends React.Component {
       .then((data) => {
         this.setState({
           masterList: data
-        }, function() {this.makeDisplayData()})
-      })
-    }
+        }, function() { this.makeDisplayData(); });
+      });
+    };
 
     this.deleteItem = (item) => {
       fetch('/items', {
@@ -166,9 +166,9 @@ class App extends React.Component {
       .then((data) => {
         this.setState({
           masterList: data
-        }, function() {this.makeDisplayData()})
-      })
-    }
+        }, function() { this.makeDisplayData(); });
+      });
+    };
 
 
 
@@ -212,7 +212,7 @@ class App extends React.Component {
   // }
 
   addUser(userData) {
-    fetch(`/users`, {
+    fetch('/users', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -222,37 +222,37 @@ class App extends React.Component {
     })
     .then((body) => body.json())
     .then((res) => console.log(res))
-    .catch((err) => console.log("err0r", err))
+    .catch((err) => console.log('err0r', err));
   }
 
   fetchItems() {
-    var getUrl = `/items/${this.state.userid}`
+    var getUrl = `/items/${this.state.userid}`;
     fetch(getUrl)
     .then(function(res) {
-      return res.json()
+      return res.json();
     })
     // set state with it
     .then((data) => {
       this.setState({
         masterList: data
-      }, function() {this.makeDisplayData()})
-    })
+      }, function() { this.makeDisplayData(); });
+    });
   }
 
   // got all items and filter for deleted items
   makeDisplayData(listid = this.state.listid, deletedStatus = false) {
-    var displayList = this.state.masterList.filter((entry) => entry.listid === listid && entry.deleted === deletedStatus)
+    var displayList = this.state.masterList.filter((entry) => entry.listid === listid && entry.deleted === deletedStatus);
     this.setState({
       displayList: displayList
-    })
+    });
   }
 
   showLock() {
     // Open the lock in Email Code mode with the ability to handle the authentication in page
-    this.lock.emailcode((err, profile, id_token, state) => {
+    this.lock.emailcode((err, profile, idToken, state) => {
       if (!err) {
         // set JWT on localstorage
-        localStorage.setItem('id_token', id_token);
+        localStorage.setItem('id_token', idToken);
         this.setState({
           userid: profile.user_id,
           profile: profile,
@@ -261,20 +261,20 @@ class App extends React.Component {
         }, () => {
           this.fetchLists();
           this.fetchItems();
-        })
+        });
         // add user to db
-        var userData = {}
-        userData.id = profile.user_id
-        userData.email = profile.email
-        this.addUser(userData)
+        var userData = {};
+        userData.id = profile.user_id;
+        userData.email = profile.email;
+        this.addUser(userData);
       }
     });
 
     // // sms
-    // this.lock.sms((err, profile, id_token, state) => {
+    // this.lock.sms((err, profile, idToken, state) => {
     //   if (!err) {
     //     // set JWT on localstorage
-    //     localStorage.setItem('id_token', id_token);
+    //     localStorage.setItem('id_token', idToken);
     //     this.setState({
     //       userid: profile.user_id,
     //       profile: profile,
@@ -301,22 +301,22 @@ class App extends React.Component {
     // save it in local storage
     if (!idToken && authHash) {
       if (authHash.id_token) {
-        idToken = authHash.id_token
+        idToken = authHash.id_token;
         localStorage.setItem('id_token', authHash.id_token);
       }
       if (authHash.error) {
         // Handle any error conditions
-        console.log("Error signing in", authHash);
+        console.log('Error signing in', authHash);
       }
     }
     return idToken;
   }
 
   logOut() {
-    localStorage.removeItem('id_token')
+    localStorage.removeItem('id_token');
     this.setState({
       idToken: ''
-    })
+    });
   }
 
   render() {
@@ -325,7 +325,7 @@ class App extends React.Component {
       // expire date on token exists
       JSON.parse(window.atob(this.state.idToken.split('.')[1])).exp !== undefined &&
       // expire date on token is more than current time
-      JSON.parse(window.atob(this.state.idToken.split('.')[1])).exp > Date.now()/1000) {
+      JSON.parse(window.atob(this.state.idToken.split('.')[1])).exp > Date.now() / 1000) {
       return (
         <div>
           <NavBar userid={this.state.userid} navList={this.state.navList} addList={this.addList} updateListid={this.updateListid} listid={this.state.listid}/>
@@ -336,16 +336,15 @@ class App extends React.Component {
             <a onClick={(e) => this.logOut()}>logout</a>
           </div>
         </div>
-      )
+      );
     } else {
       return (
         <div>
           <a onClick={(e) => this.showLock()}>Sign In</a>
         </div>
-      )
+      );
     }
   }
-
 
 
 }

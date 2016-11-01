@@ -1,6 +1,6 @@
 class TodoList extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
 
@@ -12,8 +12,8 @@ class TodoList extends React.Component {
             <tr>
               <th className="header-name">Item</th>
               <th>Qty</th>
-              <th>  +  </th>
-              <th>  -  </th>
+              <th>+</th>
+              <th>-</th>
               <th>Cost/Unit</th>
               <th>Total Cost</th>
               <th>Del</th>
@@ -24,6 +24,6 @@ class TodoList extends React.Component {
             </tbody>
         </table>
       </div>
-    )
+    );
   }
 }

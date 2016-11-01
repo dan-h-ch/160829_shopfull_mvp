@@ -1,38 +1,39 @@
 class NavBar extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.state = {}
+    this.state = {};
   }
 
   handleClick(e) {
-    this.props.addList(this.props.newListName)
+    this.props.addList(this.props.newListName);
   }
 
   handleSubmit(e) {
-    e.preventDefault()
-    var time = new Date()
-    console.log(time)
+    e.preventDefault();
+    var time = new Date();
+    console.log(time);
     var preparedSubmit = {
       listname: this.state.submitListName,
+      // linting error since we are passing directly to db
       create_userid: this.props.userid,
       created_at: new Date(),
       updated_at: new Date()
-    }
-    console.log(preparedSubmit)
-    this.props.addList(preparedSubmit)
+    };
+    // console.log(preparedSubmit)
+    this.props.addList(preparedSubmit);
     this.setState({
       // would be cool to have randomizer for the default values
       submitListName: '',
       // submitQuant: 1,
       // submitCost: 9.99
-    })
+    });
   }
 
   updateListName(e) {
     this.setState({
       submitListName: e.target.value
-    })
+    });
   }
 
   render() {
@@ -48,7 +49,7 @@ class NavBar extends React.Component {
           </li>
         </ul>
       </div>
-    )
+    );
   }
 
 

@@ -2,13 +2,12 @@ class Home extends React.Component {
 
   componentWillMount() {
 
-    this.lock = new Auth0Lock('eaDzLmALxb7fvxQhVKTkxW8rEDtMnGZD', 'danch.auth0.com')
+    this.lock = new Auth0Lock('eaDzLmALxb7fvxQhVKTkxW8rEDtMnGZD', 'danch.auth0.com');
 
   }
 
   showLock() {
-    console.log("this", this)
-    this.lock.show()
+    this.lock.show();
   }
 
   render() {
@@ -16,7 +15,7 @@ class Home extends React.Component {
       <div>
         <a onClick={(e) => this.showLock()}>Sign In</a>
       </div>
-    )
+    );
 
   }
 
