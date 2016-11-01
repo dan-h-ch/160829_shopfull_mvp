@@ -321,6 +321,7 @@ class App extends React.Component {
 
   render() {
     if (this.state.idToken &&
+      // ideally you can bring in a library for this if you need to do it a lot
       // expire date on token exists
       JSON.parse(window.atob(this.state.idToken.split('.')[1])).exp !== undefined &&
       // expire date on token is more than current time
