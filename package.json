@@ -22,16 +22,25 @@
     "babel-cli": "^6.14.0",
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-react": "^6.11.1",
+    "eslint": "^3.6.1",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-jsx": "0.0.2",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.5.0",
     "pre-commit": "^1.1.3",
     "webpack": "^1.13.3"
   },
   "scripts": {
     "start": "nodemon server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "babelify": "babel app/ --out-dir public/compiled/ --presets es2015,react --source-maps inline"
+    "babelify": "babel app/ --out-dir public/compiled/ --presets es2015,react --source-maps inline",
+    "lint": "eslint --ext .jsx ./app",
+    "pre-commit-message": "echo 'Linting before letting you comit...' && exit 0"
   },
   "pre-commit": [
-    "babelify"
+    "pre-commit-message",
+    "lint"
   ],
   "author": "danch",
   "license": "ISC"
