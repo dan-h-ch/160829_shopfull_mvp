@@ -118,7 +118,7 @@ thead {
   vertical-align: middle
 }
 
-.final-cost {
+.final-cost, .final-quant, .delete-list-button {
   text-align: center;
   margin-top: 5px;
   margin-right: 10px;

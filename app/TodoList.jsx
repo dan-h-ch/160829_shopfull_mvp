@@ -11,11 +11,7 @@ class TodoList extends React.Component {
           <thead>
             <tr>
               <th className="header-name">Item</th>
-              <th>Qty</th>
-              <th>+</th>
-              <th>-</th>
-              <th>Cost/Unit</th>
-              <th>Total Cost</th>
+
               <th>Del</th>
             </tr>
           </thead>
@@ -27,3 +23,10 @@ class TodoList extends React.Component {
     );
   }
 }
+
+// removed from above when decision to get rid of cost and quant was made - code exists incase revert
+              // <th>Qty</th>
+              // <th>+</th>
+              // <th>-</th>
+              // <th>Cost/Unit</th>
+              // <th>Total Cost</th>

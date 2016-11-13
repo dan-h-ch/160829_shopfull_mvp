@@ -19,16 +19,18 @@ class TodoCost extends React.Component {
     var totCost = this.props.todoList.reduce((memo, val) => {
       return memo + (val.quantity * val.cost);
     }, 0);
+    var quantItems = this.props.todoList.length
 
     return (
       <div>
-        <div className="final-cost">Total Cost For This Project: ${totCost.toFixed(2)}</div>
-        <div onClick={(e) => this.handleClick(e)}>delete lsit </div>
+        <div className="final-quant">{quantItems} Items</div>
+
+        <div className="delete-list-button" onClick={(e) => this.handleClick(e)}>Delet List </div>
       </div>
     );
   }
 
 
 }
-
-
+// removed from above when decision to get rid of cost and quant was made - code exists incase revert
+        // <div className="final-cost">Total Cost For This Project: ${totCost.toFixed(2)}</div>

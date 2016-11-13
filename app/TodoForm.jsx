@@ -55,8 +55,6 @@ class TodoForm extends React.Component {
       <div className="addtodo">
         <form className="submitForm" onSubmit={this.handleSubmit.bind(this)}>
           <input type="text" placeholder="whattobuywhattobuy..." value={this.state.submitName || ''} onChange={(e) => this.updateName(e)} />
-          <input type="number" min="1" placeholder="howmany..." value={this.state.submitQuant || ''} onChange={(e) => this.updateQuant(e)} />
-          <input type="number" min="0.01" step="0.01" placeholder="cost.." value={this.state.submitCost || ''} onChange={(e) => this.updateCost(e)} />
           <input type="submit" value="Must Buy!" />
         </form>
       </div>
@@ -64,5 +62,8 @@ class TodoForm extends React.Component {
   }
 
 
-
 }
+
+// removed from above when decision to get rid of cost and quant was made - code exists incase revert
+          // <input type="number" min="1" placeholder="howmany..." value={this.state.submitQuant || ''} onChange={(e) => this.updateQuant(e)} />
+          // <input type="number" min="0.01" step="0.01" placeholder="cost.." value={this.state.submitCost || ''} onChange={(e) => this.updateCost(e)} />
