@@ -36,7 +36,8 @@ class App extends React.Component {
       navList: [],
       displayList: [],
       listid: 1, //default - need to change it based on when user logs in
-      userid: '' //temporarily
+      userid: '', //temporarily
+      displayed: 'none'
     };
 
 
@@ -44,6 +45,19 @@ class App extends React.Component {
 /////   LIST RELATED     ///////
 ///////////////////////////////
     
+    // controls if display for adding a new list is visible
+    this.displayNewList = () => {
+      this.setState({
+        displayed: 'block'
+      });
+    };
+
+    this.hideNewList = () => {
+      this.setState({
+        displayed: 'none'
+      });
+    };
+
     this.fetchLists = () => {
       // userid is being passed on in URL, ultimately refactor our when auth token is in place
       var getUrl = `/lists/${this.state.userid}`;
@@ -169,28 +183,6 @@ class App extends React.Component {
         }, function() { this.makeDisplayData(); });
       });
     };
-
-
-
-    // // not being used
-    // this.filterData = (filterObj) => {
-    //   $.ajax({
-    //     type: "POST",
-    //     url: "/filter",
-    //     contentType: "application/json",
-    //     data: JSON.stringify(filterObj),
-    //     success: function(data) {
-    //       callback(data)
-    //       // console.log(this)
-    //       // this.setState({
-    //       //   masterList: data
-    //       // })
-    //     },
-    //     error: function(err) {
-    //       console.log("err: ", err)
-    //     }
-    //   })
-    // }
 
   }
 
@@ -328,8 +320,8 @@ class App extends React.Component {
       JSON.parse(window.atob(this.state.idToken.split('.')[1])).exp > Date.now() / 1000) {
       return (
         <div>
-          <NewList />
-          <NavBar userid={this.state.userid} navList={this.state.navList} addList={this.addList} updateListid={this.updateListid} listid={this.state.listid}/>
+          <NewList userid={this.state.userid} addList={this.addList} displayed={this.state.displayed} hideNewList={this.hideNewList}/>
+          <NavBar userid={this.state.userid} navList={this.state.navList} updateListid={this.updateListid} listid={this.state.listid} displayNewList={this.displayNewList}/>
           <TodoForm addItem={this.addItem} listid={this.state.listid} userid={this.state.userid}/>
           <TodoList lock={this.lock} todoList={this.state.displayList} deleteItem={this.deleteItem} updateQuant={this.updateQuant} userid={this.state.userid} />
           <TodoCost todoList={this.state.displayList} deleteList={this.deleteList} listid={this.state.listid} userid={this.state.userid}/>

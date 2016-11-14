@@ -25,7 +25,7 @@ class TodoCost extends React.Component {
       <div>
         <div className="final-quant">{quantItems} Items</div>
 
-        <div className="delete-list-button" onClick={(e) => this.handleClick(e)}>Delet List </div>
+        <div className="delete-list-button" onClick={(e) => this.handleClick(e)}>Delete List </div>
       </div>
     );
   }
