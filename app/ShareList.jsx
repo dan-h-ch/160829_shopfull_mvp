@@ -1,4 +1,4 @@
-class NewList extends React.Component {
+class ShareList extends React.Component {
 
   constructor(props) {
     super(props);
@@ -23,34 +23,28 @@ class NewList extends React.Component {
       submitQuant: 1,
       submitCost: 1
     });
-    this.hideNewList();
+    this.hideShareList();
   }
 
-  updateListName(e) {
-    this.setState({
-      submitListName: e.target.value
-    });
-  }
-
-  hideNewList() {
-    this.props.hideNewList();
+  hideShareList() {
+    this.props.hideShareList();
   }
 
   render() {
     var style = {
-      display: this.props.createDisplayed
+      display: this.props.shareDisplayed
     };
     return (
       <div className='submit-new-list' style={style}>
-        <div>Add New List</div>
-        <div>props {this.props.createDisplayed}</div>
+        <div>Share List</div>
+        <div>props {this.props.shareDisplayed}</div>
         <div>
           <form className="submitForm" onSubmit={this.handleSubmit.bind(this)}>
             <input type="text" placeholder="newlist..." value={this.state.submitListName || ''} onChange={(e) => this.updateListName(e)} />
             <input type="submit" value="New List!" />
           </form>
         </div>
-        <div onClick={(e) => this.hideNewList()}>
+        <div onClick={(e) => this.hideShareList()}>
           close
         </div>
       </div>

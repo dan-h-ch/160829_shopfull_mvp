@@ -9,10 +9,11 @@ class TodoCost extends React.Component {
       id: this.props.listid,
       userid: this.props.userid
     };
-    // console.log(returnList);
-    // var returnList = this.props.listid
-    // returnItem.item_last_edit_userid = this.props.userid
     this.props.deleteList(returnList);
+  }
+
+  shareList(e) {
+    this.props.displayShareList();
   }
 
   render() {
@@ -24,8 +25,8 @@ class TodoCost extends React.Component {
     return (
       <div>
         <div className="final-quant">{quantItems} Items</div>
-
         <div className="delete-list-button" onClick={(e) => this.handleClick(e)}>Delete List </div>
+        <div className="share-list-button" onClick={(e) => this.shareList(e)}>Share List </div>
       </div>
     );
   }

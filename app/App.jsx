@@ -37,7 +37,8 @@ class App extends React.Component {
       displayList: [],
       listid: 1, //default - need to change it based on when user logs in
       userid: '', //temporarily
-      displayed: 'none'
+      createDisplayed: 'none',
+      shareDisplayed: 'none'
     };
 
 
@@ -48,13 +49,25 @@ class App extends React.Component {
     // controls if display for adding a new list is visible
     this.displayNewList = () => {
       this.setState({
-        displayed: 'block'
+        createDisplayed: 'block'
       });
     };
 
     this.hideNewList = () => {
       this.setState({
-        displayed: 'none'
+        createDisplayed: 'none'
+      });
+    };
+
+    this.displayShareList = () => {
+      this.setState({
+        shareDisplayed: 'block'
+      });
+    };
+
+    this.hideShareList = () => {
+      this.setState({
+        shareDisplayed: 'none'
       });
     };
 
@@ -320,11 +333,12 @@ class App extends React.Component {
       JSON.parse(window.atob(this.state.idToken.split('.')[1])).exp > Date.now() / 1000) {
       return (
         <div>
-          <NewList userid={this.state.userid} addList={this.addList} displayed={this.state.displayed} hideNewList={this.hideNewList}/>
+          <NewList userid={this.state.userid} addList={this.addList} createDisplayed={this.state.createDisplayed} hideNewList={this.hideNewList}/>
           <NavBar userid={this.state.userid} navList={this.state.navList} updateListid={this.updateListid} listid={this.state.listid} displayNewList={this.displayNewList}/>
           <TodoForm addItem={this.addItem} listid={this.state.listid} userid={this.state.userid}/>
           <TodoList lock={this.lock} todoList={this.state.displayList} deleteItem={this.deleteItem} updateQuant={this.updateQuant} userid={this.state.userid} />
-          <TodoCost todoList={this.state.displayList} deleteList={this.deleteList} listid={this.state.listid} userid={this.state.userid}/>
+          <TodoCost todoList={this.state.displayList} deleteList={this.deleteList} listid={this.state.listid} userid={this.state.userid} displayShareList={this.displayShareList}/>
+          <ShareList userid={this.state.userid} addList={this.addList} shareDisplayed={this.state.shareDisplayed} hideShareList={this.hideShareList}/>
           <div>
             <a onClick={(e) => this.logOut()}>logout</a>
           </div>

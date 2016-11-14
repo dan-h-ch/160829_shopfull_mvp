@@ -11,8 +11,7 @@ class TodoList extends React.Component {
           <thead>
             <tr>
               <th className="header-name">Item</th>
-
-              <th>Del</th>
+              <th> </th>
             </tr>
           </thead>
             <tbody>

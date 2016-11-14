@@ -28,7 +28,7 @@ class TodoListItem extends React.Component {
       <tr>
         <td className="item-name">{this.props.todoListItem.itemname}</td>
 
-        <td className="delete" onClick={(e) => this.handleClick(e)}>delete</td>
+        <td className="delete" onClick={(e) => this.handleClick(e)}>X</td>
       </tr>
     );
   }
