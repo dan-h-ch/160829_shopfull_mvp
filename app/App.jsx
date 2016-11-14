@@ -328,6 +328,7 @@ class App extends React.Component {
       JSON.parse(window.atob(this.state.idToken.split('.')[1])).exp > Date.now() / 1000) {
       return (
         <div>
+          <NewList />
           <NavBar userid={this.state.userid} navList={this.state.navList} addList={this.addList} updateListid={this.updateListid} listid={this.state.listid}/>
           <TodoForm addItem={this.addItem} listid={this.state.listid} userid={this.state.userid}/>
           <TodoList lock={this.lock} todoList={this.state.displayList} deleteItem={this.deleteItem} updateQuant={this.updateQuant} userid={this.state.userid} />

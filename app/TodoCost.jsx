@@ -19,7 +19,7 @@ class TodoCost extends React.Component {
     var totCost = this.props.todoList.reduce((memo, val) => {
       return memo + (val.quantity * val.cost);
     }, 0);
-    var quantItems = this.props.todoList.length
+    var quantItems = this.props.todoList.length;
 
     return (
       <div>
