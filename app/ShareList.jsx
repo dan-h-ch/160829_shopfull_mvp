@@ -30,6 +30,12 @@ class ShareList extends React.Component {
     this.props.hideShareList();
   }
 
+  updateListName(e) {
+    this.setState({
+      submitListName: e.target.value
+    });
+  }
+
   render() {
     var style = {
       display: this.props.shareDisplayed

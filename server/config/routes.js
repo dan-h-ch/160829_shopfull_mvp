@@ -94,6 +94,17 @@ module.exports = function(app, express){
   /////   USERS            ///////
   ///////////////////////////////
 
+  app.put('/users', function(req, res) {
+    console.log('looking for... ', req.body)
+    db.knex('users').where('id', req.body.id)
+    .update({
+      username: req.body.username
+    })
+    .then(function(data) {
+      res.status(201).send(JSON.stringify(req.body))
+    })
+  })
+
   app.post('/users', function(req, res) {
     console.log('looking for... ', req.body)
     db.knex('users').where('id', req.body.id)
@@ -107,7 +118,7 @@ module.exports = function(app, express){
         })
       } else {
         console.log('user already exists...', req.body)
-        res.status(409).send(JSON.stringify('user already exists'))
+        res.status(409).send(JSON.stringify(data))
       }
     })
   })

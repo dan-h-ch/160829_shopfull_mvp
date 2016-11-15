@@ -197,6 +197,28 @@ class App extends React.Component {
       });
     };
 
+/////////////////////////////////
+/////   USER RELATED     ///////
+///////////////////////////////
+
+
+    this.saveUsername = (userData) => {
+      fetch('/users', {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      })
+      .then((body) => body.json())
+      .then((res) => {
+        this.setState({
+          username: res.username
+        });
+      });
+    };
+
   }
 
   // deleteItem(item) {
@@ -216,6 +238,7 @@ class App extends React.Component {
   //   })
   // }
 
+
   addUser(userData) {
     fetch('/users', {
       method: 'POST',
@@ -226,7 +249,11 @@ class App extends React.Component {
       body: JSON.stringify(userData)
     })
     .then((body) => body.json())
-    .then((res) => console.log(res))
+    .then((res) => {
+      this.setState({
+        username: res.username
+      });
+    })
     .catch((err) => console.log('err0r', err));
   }
 
@@ -325,7 +352,14 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.state.idToken &&
+    // if idtoken & username exist
+    if (this.state.idToken && !this.state.username) {
+      return (
+        <div>
+          <Username userid={this.state.userid} saveUsername={this.saveUsername}/>
+        </div>
+      );
+    } else if (this.state.idToken &&
       // ideally you can bring in a library for this if you need to do it a lot
       // expire date on token exists
       JSON.parse(window.atob(this.state.idToken.split('.')[1])).exp !== undefined &&
