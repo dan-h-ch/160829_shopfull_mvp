@@ -5,6 +5,10 @@ class App extends React.Component {
 
   componentWillMount() {
     this.lock = new Auth0LockPasswordless('eaDzLmALxb7fvxQhVKTkxW8rEDtMnGZD', 'danch.auth0.com');
+
+    // this.setState({
+    //   username: ''
+    // })
   }
 
   componentDidMount() {
@@ -19,6 +23,7 @@ class App extends React.Component {
         }, () => {
           this.fetchLists();
           this.fetchItems();
+          this.fetchUsername();
         });
         var userData = {};
         userData.id = prof.user_id;
@@ -201,6 +206,17 @@ class App extends React.Component {
 /////   USER RELATED     ///////
 ///////////////////////////////
 
+    this.fetchUsername = () => {
+      // userid is being passed on in URL, ultimately refactor our when auth token is in place
+      var getUrl = `/username/${this.state.userid}`;
+      fetch(getUrl)
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({
+          username: data.username
+        });
+      });
+    };
 
     this.saveUsername = (userData) => {
       fetch('/users', {
@@ -214,9 +230,11 @@ class App extends React.Component {
       .then((body) => body.json())
       .then((res) => {
         this.setState({
-          username: res.username
+          username: res.username,
+          error: res.error
         });
-      });
+      })
+      .catch((err) => console.log('err0r', err));
     };
 
   }
@@ -237,7 +255,6 @@ class App extends React.Component {
   //     }, function() {this.makeDisplayData()})
   //   })
   // }
-
 
   addUser(userData) {
     fetch('/users', {
@@ -356,7 +373,7 @@ class App extends React.Component {
     if (this.state.idToken && !this.state.username) {
       return (
         <div>
-          <Username userid={this.state.userid} saveUsername={this.saveUsername}/>
+          <Username userid={this.state.userid} saveUsername={this.saveUsername} error={this.state.error}/>
         </div>
       );
     } else if (this.state.idToken &&

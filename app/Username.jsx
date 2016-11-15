@@ -33,7 +33,7 @@ class Username extends React.Component {
           <input type="submit" value="Submit" />
         </form>
         <div>
-          Error message here
+          {this.props.error}
         </div>
       </div>
     );

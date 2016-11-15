@@ -94,14 +94,35 @@ module.exports = function(app, express){
   /////   USERS            ///////
   ///////////////////////////////
 
-  app.put('/users', function(req, res) {
-    console.log('looking for... ', req.body)
-    db.knex('users').where('id', req.body.id)
-    .update({
-      username: req.body.username
-    })
+  app.get('/username/:userid', function(req, res) {
+    db.knex('users').where('id', req.params.userid).select('username')
     .then(function(data) {
-      res.status(201).send(JSON.stringify(req.body))
+      console.log('USERNAME!!!!!!!!!!-----------------', data)
+      res.status(201).send(JSON.stringify(data[0]))
+    })
+  })
+
+  app.put('/users', function(req, res) {
+    console.log('putting for... ', req.body)
+    db.knex('users').where('username', req.body.username)
+    .then(function(data) {
+      if (data.length === 0) {
+        console.log('no username in db')
+        db.knex('users').where('id', req.body.id)
+        .update({
+          username: req.body.username
+        })
+        .then(function(data) {
+          res.status(201).send(JSON.stringify(req.body))
+        })
+      } else {
+        console.log('username seems taken')
+        var resp = {
+          error: 'Username is already taken'
+        }
+        console.log(resp)
+        res.status(409).send(JSON.stringify(resp))
+      }
     })
   })
 
@@ -138,7 +159,6 @@ module.exports = function(app, express){
     })
 
   }
-
 
   var sendAllLists = function (req, res, userid) {
     console.log('getting all lists with userid', userid)
