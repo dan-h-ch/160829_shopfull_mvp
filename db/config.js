@@ -23,8 +23,8 @@ db.knex.schema.hasTable('users').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('users', function (user) {
       user.string('id').primary();
-      user.string('username', 255);
-      user.string('email', 255)
+      user.string('username', 255).unique();
+      user.string('email', 255);
       user.timestamps();
     }).then(function (table) {
       console.log('Created Table', table);
@@ -57,11 +57,26 @@ db.knex.schema.hasTable('items').then(function(exists) {
       item.integer('quantity');
       item.decimal('cost');
       item.string('item_create_userid');
-      item.foreign('item_create_userid').references('users.id')
+      item.foreign('item_create_userid').references('users.id');
       item.string('item_last_edit_userid');
-      item.foreign('item_last_edit_userid').references('users.id')
+      item.foreign('item_last_edit_userid').references('users.id');
       item.boolean('deleted').defaultTo('false');
       item.timestamps();
+    }).then(function (table) {
+      console.log('Created Table', table);
+    });
+  }
+});
+
+// userlist is join table that represents what a user has access to
+db.knex.schema.hasTable('userlists').then(function(exists) {
+  if (!exists) {
+    db.knex.schema.createTable('userlists', function (userlist) {
+      userlist.increments('id').primary();
+      userlist.string('userid');
+      userlist.foreign('userid').references('users.id');
+      userlist.integer('listid');
+      userlist.foreign('listid').references('lists.id');
     }).then(function (table) {
       console.log('Created Table', table);
     });

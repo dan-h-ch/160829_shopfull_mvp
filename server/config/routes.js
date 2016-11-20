@@ -11,14 +11,14 @@ module.exports = function(app, express){
   ///////////////////////////////
 
   app.get('/items/:userid', function(req, res) {
-    sendAllItem(req, res, req.params.userid)
-  })
+    sendAllItem(req, res, req.params.userid);
+  });
 
   // do i want to actually delete the item?
   app.delete('/items', function(req, res) {
     // console.log('about to delete... ', req.body)
     // var searchId = req.body.id
-    db.knex('items').select().where("id", req.body.id)
+    db.knex('items').select().where('id', req.body.id)
     .update({
       deleted: true,
       updated_at: new Date (),
@@ -26,29 +26,29 @@ module.exports = function(app, express){
     })
     .then(function() {
       // assuming last user edit is the account logged in
-      sendAllItem(req, res, req.body.item_last_edit_userid)
-    })
-  })
+      sendAllItem(req, res, req.body.item_last_edit_userid);
+    });
+  });
 
   app.post('/items', function(req, res) {
     // TODO: Error handling for no list selected
-    console.log('about to add item... ', req.body)
+    console.log('about to add item... ', req.body);
     db.knex.insert(req.body).into('items')
     .then(function() {
       // thid doesn't work for updated across shares, need to pass in sessions userid
       // TODO: update with sessiosn userid when avialable
-      sendAllItem(req, res, req.body.item_create_userid)
-    })
-  })
+      sendAllItem(req, res, req.body.item_create_userid);
+    });
+  });
 
   app.put('/items', function(req, res) {
-    console.log('about to update...', req.body)
-    req.body.updated_at = new Date()
+    console.log('about to update...', req.body);
+    req.body.updated_at = new Date();
     db.knex('items').where('id', req.body.id).update(req.body)
     .then(function() {
-      sendAllItem(req, res, req.body.id)
-    })
-  })
+      sendAllItem(req, res, req.body.id);
+    });
+  });
 
   /////////////////////////////////
   /////   LISTS            ///////
@@ -56,30 +56,38 @@ module.exports = function(app, express){
 
   app.get('/lists/:userid', function(req, res) {
     // TODO: update with session userid when available
-    sendAllLists(req, res, req.params.userid)
-  })
+    sendAllLists(req, res, req.params.userid);
+  });
 
   app.post('/lists', function(req, res) {
-    console.log('about to add list... ', req.body)
+    // db.knex.insert(req.body).into('userList')
+    console.log('about to add list... ', req.body);
     db.knex.insert(req.body).into('lists')
-    .then(function() {
+    .returning('id')
+    .then(function(data) {
+      console.log("OVERHERE!!!!!!!", data);
+      var userListInsert = {
+        userid: req.body.create_userid,
+        listid: data[0]
+      };
+      db.knex.insert(userListInsert).into('userlists');
       // assume create_userid of new list is active session list
       // TODO: update with session userid when available
-      sendAllLists(req, res, req.body.create_userid)
-    })
-  })
+      sendAllLists(req, res, req.body.create_userid);
+    });
+  });
 
   app.delete('/lists', function(req, res) {
-    console.log('about to delete list... ', req.body)
+    console.log('about to delete list... ', req.body);
     db.knex('lists').select().where('id', req.body.id)
     .update({
       deleted: true,
       updated_at: new Date ()
     })
     .then(function() {
-      sendAllLists(req, res, req.body.userid)
-    })
-  })
+      sendAllLists(req, res, req.body.userid);
+    });
+  });
 
   // For filter
   // app.post('/filter', function(req, res) {
