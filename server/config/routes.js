@@ -160,7 +160,7 @@ module.exports = function(app, express){
 ///////////////////////////////
 
   var sendAllItem = function (req, res, userid) {
-    var validListids = db.knex('userlists').where('userid', userid).select('id');
+    var validListids = db.knex('userlists').where('userid', userid).select('listid');
 
     db.knex('items').whereIn('listid', validListids)
     .then(function(itemData) {
