@@ -61,11 +61,10 @@ module.exports = function(app, express){
 
   app.post('/lists', function(req, res) {
     // db.knex.insert(req.body).into('userList')
-    console.log('about to add list... ', req.body);
+    console.log('about to add list... ', req.body.listname);
     db.knex.insert(req.body).into('lists')
     .returning('id')
     .then(function(data) {
-      console.log("OVERHERE!!!!!!!", data);
       var userListInsert = {
         userid: req.body.create_userid,
         listid: data[0]
@@ -78,7 +77,7 @@ module.exports = function(app, express){
   });
 
   app.delete('/lists', function(req, res) {
-    console.log('about to delete list... ', req.body);
+    console.log('about to delete list... ', req.body.id);
     db.knex('lists').select().where('id', req.body.id)
     .update({
       deleted: true,
@@ -105,7 +104,6 @@ module.exports = function(app, express){
   app.get('/username/:userid', function(req, res) {
     db.knex('users').where('id', req.params.userid).select('username')
     .then(function(data) {
-      console.log('USERNAME!!!!!!!!!!-----------------', data)
       res.status(201).send(JSON.stringify(data[0]))
     })
   })
@@ -149,8 +147,8 @@ module.exports = function(app, express){
         console.log('user already exists...', req.body)
         res.status(409).send(JSON.stringify(data))
       }
-    })
-  })
+    });
+  });
 
 
 /////////////////////////////////
@@ -158,28 +156,25 @@ module.exports = function(app, express){
 ///////////////////////////////
 
   var sendAllItem = function (req, res, userid) {
-    var validListids = db.knex('lists').where('create_userid', userid).select('id')
+    var validListids = db.knex('lists').where('create_userid', userid).select('id');
 
     db.knex('items').whereIn('listid', validListids)
     .then(function(itemData) {
-      console.log(itemData)
-      res.status(200).send(JSON.stringify(itemData))
-    })
-
-  }
+      res.status(200).send(JSON.stringify(itemData));
+    });
+  };
 
   var sendAllLists = function (req, res, userid) {
-    console.log('getting all lists with userid', userid)
-    db.knex('lists').where({
-      'deleted': false,
-      'create_userid': userid,
-    }).andWhere('create_userid', userid)
-    .then(function(data) {
-      console.log(data)
-      res.status(200).send(JSON.stringify(data))
+    db.knex.select('listid', 'listname', 'userid')
+    .from('userlists')
+    .leftJoin('lists', 'userlists.listid', 'lists.id')
+    .where({
+      'userlists.userid': userid,
+      'lists.deleted': false
     })
-  }
+    .then(function(data) {
+      res.status(200).send(JSON.stringify(data));
+    });
+  };
 
-
-
-}
+};
