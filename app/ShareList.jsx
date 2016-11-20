@@ -8,20 +8,15 @@ class ShareList extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    var time = new Date();
     var preparedSubmit = {
-      listname: this.state.submitListName,
+      listid: this.props.listid,
       // linting error since we are passing directly to db
-      create_userid: this.props.userid,
-      created_at: new Date(),
-      updated_at: new Date()
+      username: this.state.shareUsername
     };
     // console.log(preparedSubmit)
-    this.props.addList(preparedSubmit);
+    this.props.shareList(preparedSubmit);
     this.setState({
-      submitListName: '',
-      submitQuant: 1,
-      submitCost: 1
+      shareUsername: '',
     });
     this.hideShareList();
   }
@@ -30,9 +25,9 @@ class ShareList extends React.Component {
     this.props.hideShareList();
   }
 
-  updateListName(e) {
+  updateShareUsername(e) {
     this.setState({
-      submitListName: e.target.value
+      shareUsername: e.target.value
     });
   }
 
@@ -42,12 +37,13 @@ class ShareList extends React.Component {
     };
     return (
       <div className='submit-new-list' style={style}>
-        <div>Share List</div>
+        <div>Share This List</div>
         <div>props {this.props.shareDisplayed}</div>
+        <div>Enter username to share with</div>
         <div>
           <form className="submitForm" onSubmit={this.handleSubmit.bind(this)}>
-            <input type="text" placeholder="newlist..." value={this.state.submitListName || ''} onChange={(e) => this.updateListName(e)} />
-            <input type="submit" value="New List!" />
+            <input type="text" placeholder="username" value={this.state.shareUsername || ''} onChange={(e) => this.updateShareUsername(e)} />
+            <input type="submit" value="Share!" />
           </form>
         </div>
         <div onClick={(e) => this.hideShareList()}>

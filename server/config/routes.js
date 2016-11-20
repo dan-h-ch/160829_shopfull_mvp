@@ -92,6 +92,28 @@ module.exports = function(app, express){
     });
   });
 
+  app.post('/userlists', function(req, res) {
+    console.log(`want to share ${req.body.listid} with username ${req.body.username}`)
+    db.knex('users').select('id').where('username', req.body.username)
+    .then(function(data) {
+      if (data[0] === undefined) {
+        res.status(400).send(JSON.stringify({message: `Unable to find ${req.body.username}.`}))
+      } else {
+        var insertObj = {
+          listid: req.body.listid,
+          userid: data[0].id
+        }
+        db.knex.insert(insertObj).into('userlists').
+        then(function(data) {
+          res.status(201).send(JSON.stringify({message: `Successfully shared with ${req.body.username}`}))
+        })
+      }
+      console.log(data)
+      console.log(data[0])
+      console.log(`want to share ${req.body.listid} with userid ${data[0].id}`)
+    })
+  })
+
   // For filter
   // app.post('/filter', function(req, res) {
   //   console.log('about to filter... ', req.body)
