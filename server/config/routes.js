@@ -65,14 +65,18 @@ module.exports = function(app, express){
     db.knex.insert(req.body).into('lists')
     .returning('id')
     .then(function(data) {
+      console.log('data', data[0])
       var userListInsert = {
         userid: req.body.create_userid,
         listid: data[0]
       };
-      db.knex.insert(userListInsert).into('userlists');
+      console.log(userListInsert)
+      db.knex.insert(userListInsert).into('userlists')
+      .then(function(){
+        sendAllLists(req, res, req.body.create_userid);
+      });
       // assume create_userid of new list is active session list
       // TODO: update with session userid when available
-      sendAllLists(req, res, req.body.create_userid);
     });
   });
 
@@ -156,7 +160,7 @@ module.exports = function(app, express){
 ///////////////////////////////
 
   var sendAllItem = function (req, res, userid) {
-    var validListids = db.knex('lists').where('create_userid', userid).select('id');
+    var validListids = db.knex('userlists').where('userid', userid).select('id');
 
     db.knex('items').whereIn('listid', validListids)
     .then(function(itemData) {

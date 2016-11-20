@@ -83,7 +83,7 @@ class App extends React.Component {
       .then((res) => res.json())
       .then((data) => {
         var displayListid = data.reduce((memo, val) => {
-          return Math.min(val.id, memo);
+          return Math.min(val.listid, memo);
         }, Infinity);
         this.setState({
           navList: data,
@@ -111,8 +111,9 @@ class App extends React.Component {
       })
       .then((data) => data.json())
       .then((data) => {
+        console.log(data);
         var activeList = data.reduce((memo, val) => {
-          return Math.max(val.id, memo);
+          return Math.max(val.listid, memo);
         }, -Infinity);
         this.setState({
           navList: data,
