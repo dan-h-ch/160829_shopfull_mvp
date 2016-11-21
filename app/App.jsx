@@ -1,22 +1,13 @@
-// import 'whatwg-fetch';
-// var jwt = require('jsonwebtoken')
-
 class App extends React.Component {
 
   componentWillMount() {
     this.lock = new Auth0LockPasswordless('eaDzLmALxb7fvxQhVKTkxW8rEDtMnGZD', 'danch.auth0.com');
-
-    // this.setState({
-    //   username: ''
-    // })
   }
 
   componentDidMount() {
     this.setState({
       idToken: this.getIdToken()
     }, () => {
-      // this.fetchUsername();
-      // set more state stuff
       this.lock.getProfile(this.state.idToken, (err, prof) => {
         this.setState({
           userid: prof.user_id,
@@ -47,7 +38,6 @@ class App extends React.Component {
       shareDisplayed: 'none',
       username: ''
     };
-
 
 /////////////////////////////////
 /////   LIST RELATED     ///////
@@ -255,6 +245,15 @@ class App extends React.Component {
       .catch((err) => console.log('err0r', err));
     };
 
+    this.logOut = () => {
+      localStorage.removeItem('id_token');
+      this.setState({
+        idToken: '',
+        userid: '',
+        username: ''
+      });
+    };
+
   }
 
   // deleteItem(item) {
@@ -380,14 +379,6 @@ class App extends React.Component {
     return idToken;
   }
 
-  logOut() {
-    localStorage.removeItem('id_token');
-    this.setState({
-      idToken: '',
-      userid: '',
-      username: ''
-    });
-  }
 
   render() {
     // if idtoken & username exist
@@ -407,6 +398,7 @@ class App extends React.Component {
       JSON.parse(window.atob(this.state.idToken.split('.')[1])).exp > Date.now() / 1000) {
       return (
         <div>
+          <Header username={this.state.username} logOut={this.logOut}/>
           <NewList userid={this.state.userid} addList={this.addList} createDisplayed={this.state.createDisplayed} hideNewList={this.hideNewList}/>
           <NavBar userid={this.state.userid} navList={this.state.navList} updateListid={this.updateListid} listid={this.state.listid} displayNewList={this.displayNewList}/>
           <TodoForm addItem={this.addItem} listid={this.state.listid} userid={this.state.userid}/>
