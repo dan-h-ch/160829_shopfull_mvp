@@ -15,6 +15,7 @@ class App extends React.Component {
     this.setState({
       idToken: this.getIdToken()
     }, () => {
+      // this.fetchUsername();
       // set more state stuff
       this.lock.getProfile(this.state.idToken, (err, prof) => {
         this.setState({
@@ -43,7 +44,8 @@ class App extends React.Component {
       listid: 1, //default - need to change it based on when user logs in
       userid: '', //temporarily
       createDisplayed: 'none',
-      shareDisplayed: 'none'
+      shareDisplayed: 'none',
+      username: ''
     };
 
 
@@ -326,6 +328,7 @@ class App extends React.Component {
         }, () => {
           this.fetchLists();
           this.fetchItems();
+          this.fetchUsername();
         });
         // add user to db
         var userData = {};
@@ -380,7 +383,9 @@ class App extends React.Component {
   logOut() {
     localStorage.removeItem('id_token');
     this.setState({
-      idToken: ''
+      idToken: '',
+      userid: '',
+      username: ''
     });
   }
 
@@ -389,6 +394,8 @@ class App extends React.Component {
     if (this.state.idToken && !this.state.username) {
       return (
         <div>
+          <div>idToken {this.state.idToken}</div>
+          <div>username {this.state.username}</div>
           <Username userid={this.state.userid} saveUsername={this.saveUsername} error={this.state.error}/>
         </div>
       );

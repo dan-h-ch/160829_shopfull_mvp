@@ -72,7 +72,7 @@ module.exports = function(app, express){
       };
       console.log(userListInsert)
       db.knex.insert(userListInsert).into('userlists')
-      .then(function(){
+      .then(function() {
         sendAllLists(req, res, req.body.create_userid);
       });
       // assume create_userid of new list is active session list
@@ -93,7 +93,6 @@ module.exports = function(app, express){
   });
 
   app.post('/userlists', function(req, res) {
-    console.log(`want to share ${req.body.listid} with username ${req.body.username}`)
     db.knex('users').select('id').where('username', req.body.username)
     .then(function(data) {
       if (data[0] === undefined) {
@@ -105,14 +104,11 @@ module.exports = function(app, express){
         }
         db.knex.insert(insertObj).into('userlists').
         then(function(data) {
-          res.status(201).send(JSON.stringify({message: `Successfully shared with ${req.body.username}`}))
-        })
+          res.status(201).send(JSON.stringify({message: `Successfully shared with ${req.body.username}`}));
+        });
       }
-      console.log(data)
-      console.log(data[0])
-      console.log(`want to share ${req.body.listid} with userid ${data[0].id}`)
-    })
-  })
+    });
+  });
 
   // For filter
   // app.post('/filter', function(req, res) {
