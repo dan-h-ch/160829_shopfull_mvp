@@ -43,10 +43,9 @@ class NewList extends React.Component {
     return (
       <div className='submit-new-list' style={style}>
         <div>Add New List</div>
-        <div>props {this.props.createDisplayed}</div>
         <div>
           <form className="submitForm" onSubmit={this.handleSubmit.bind(this)}>
-            <input type="text" placeholder="newlist..." value={this.state.submitListName || ''} onChange={(e) => this.updateListName(e)} />
+            <input type="text" placeholder="List name" value={this.state.submitListName || ''} onChange={(e) => this.updateListName(e)} />
             <input type="submit" value="New List!" />
           </form>
         </div>

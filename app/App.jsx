@@ -405,9 +405,6 @@ class App extends React.Component {
           <TodoList lock={this.lock} todoList={this.state.displayList} deleteItem={this.deleteItem} updateQuant={this.updateQuant} userid={this.state.userid} />
           <TodoCost todoList={this.state.displayList} deleteList={this.deleteList} listid={this.state.listid} userid={this.state.userid} displayShareList={this.displayShareList}/>
           <ShareList userid={this.state.userid} shareList={this.shareList} shareDisplayed={this.state.shareDisplayed} hideShareList={this.hideShareList} listid={this.state.listid}/>
-          <div>
-            <a onClick={(e) => this.logOut()}>logout</a>
-          </div>
         </div>
       );
     } else {

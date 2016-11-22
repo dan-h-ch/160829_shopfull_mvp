@@ -1,9 +1,12 @@
 var Header = ({username, logOut}) => (
-  <div>
-    <div className='header'>
+  <div className='header-container'>
+    <div className='header-items'>
     Hi {username}
     </div>
-    <div onClick={logOut}>
+    <div id='top-banner'>
+    Listify
+    </div>
+    <div onClick={logOut} className='header-items'>
     Logout
     </div>
   </div>
