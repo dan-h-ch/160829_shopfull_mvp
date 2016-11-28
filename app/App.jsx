@@ -36,7 +36,8 @@ class App extends React.Component {
       userid: '', //temporarily
       createDisplayed: 'none',
       shareDisplayed: 'none',
-      username: ''
+      username: '',
+      login: 'default'
     };
 
 /////////////////////////////////
@@ -316,50 +317,54 @@ class App extends React.Component {
   }
 
   showLock() {
-    // Open the lock in Email Code mode with the ability to handle the authentication in page
-    this.lock.emailcode((err, profile, idToken, state) => {
-      if (!err) {
-        // set JWT on localstorage
-        localStorage.setItem('id_token', idToken);
-        this.setState({
-          userid: profile.user_id,
-          profile: profile,
-          // relies on local storage, triggers render()
-          idToken: this.getIdToken()
-        }, () => {
-          this.fetchLists();
-          this.fetchItems();
-          this.fetchUsername();
-        });
-        // add user to db
-        var userData = {};
-        userData.id = profile.user_id;
-        userData.email = profile.email;
-        this.addUser(userData);
-      }
-    });
+    if (this.state.login === 'phone') {
+      // sms
+      this.lock.sms((err, profile, idToken, state) => {
+        if (!err) {
+          // set JWT on localstorage
+          localStorage.setItem('id_token', idToken);
+          this.setState({
+            userid: profile.user_id,
+            profile: profile,
+            // relies on local storage, triggers render()
+            idToken: this.getIdToken()
+          }, () => {
+            this.fetchLists();
+            this.fetchItems();
+            this.fetchUsername();
+          });
+          // add user to db
+          var userData = {};
+          userData.id = profile.user_id;
+          userData.email = profile.email;
+          this.addUser(userData);
+        }
+      });
+    } else {
+      // Open the lock in Email Code mode with the ability to handle the authentication in page
+      this.lock.emailcode((err, profile, idToken, state) => {
+        if (!err) {
+          // set JWT on localstorage
+          localStorage.setItem('id_token', idToken);
+          this.setState({
+            userid: profile.user_id,
+            profile: profile,
+            // relies on local storage, triggers render()
+            idToken: this.getIdToken()
+          }, () => {
+            this.fetchLists();
+            this.fetchItems();
+            this.fetchUsername();
+          });
+          // add user to db
+          var userData = {};
+          userData.id = profile.user_id;
+          userData.email = profile.email;
+          this.addUser(userData);
+        }
+      });
+    }
 
-    // // sms
-    // this.lock.sms((err, profile, idToken, state) => {
-    //   if (!err) {
-    //     // set JWT on localstorage
-    //     localStorage.setItem('id_token', idToken);
-    //     this.setState({
-    //       userid: profile.user_id,
-    //       profile: profile,
-    //       // relies on local storage, triggers render()
-    //       idToken: this.getIdToken()
-    //     }, () => {
-    //       this.fetchLists();
-    //       this.fetchItems();
-    //     })
-    //     // add user to db
-    //     var userData = {}
-    //     userData.id = profile.user_id
-    //     userData.email = profile.email
-    //     this.addUser(userData)
-    //   }
-    // });
   }
 
   getIdToken() {
@@ -400,6 +405,7 @@ class App extends React.Component {
       JSON.parse(window.atob(this.state.idToken.split('.')[1])).exp > Date.now() / 1000) {
       return (
         <div>
+          {this.state.login}
           <Header username={this.state.username} logOut={this.logOut}/>
           <NewList userid={this.state.userid} addList={this.addList} createDisplayed={this.state.createDisplayed} hideNewList={this.hideNewList}/>
           <NavBar userid={this.state.userid} navList={this.state.navList} updateListid={this.updateListid} listid={this.state.listid} displayNewList={this.displayNewList}/>
@@ -411,8 +417,18 @@ class App extends React.Component {
       );
     } else {
       return (
-        <div>
-          <a onClick={(e) => this.showLock()}>Sign In</a>
+        <div className='login-box'>
+          <div>
+            <div className='login-select' onClick={(e) => this.setState({login: 'phone'})}>
+              Phone Number
+            </div>
+            <div className='login-select' onClick={(e) => this.setState({login: 'email'})}>
+              Email Address
+            </div>
+          </div>
+          <div className='login-click' onClick={(e) => this.showLock()}>
+            Login
+          </div>
         </div>
       );
     }

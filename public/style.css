@@ -167,3 +167,37 @@ thead {
   padding: 3px;
 }
 
+/*.login-select {
+  position: relative;
+  top: 30px;
+  padding: 6px;
+  display: inline;
+  border-width: 2px;
+  border-style: solid;
+  margin: 5px;
+}*/
+
+.login-box {
+  position: relative;
+  top: 30px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: red;
+/*  margin: 5px;*/
+}
+
+.login-select {
+  display: inline;
+/*  margin: 6px;*/
+  border-width: 2px;
+  border-style: solid;
+  border-color: blue;
+/*  margin: 5px;*/
+}
+
+.login-click {
+  border-width: 2px;
+  border-style: solid;
+  border-color: green;
+}
+
