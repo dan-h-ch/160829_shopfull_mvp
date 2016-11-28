@@ -74,20 +74,22 @@ class App extends React.Component {
       fetch(getUrl)
       .then((res) => res.json())
       .then((data) => {
-        var displayListid = data.reduce((memo, val) => {
-          return Math.min(val.listid, memo);
-        }, Infinity);
+        var displayList = data.reduce((memo, val) => {
+          return val.listid < memo.listid ? val : memo;
+        });
         this.setState({
           navList: data,
-          listid: displayListid
+          listid: displayList.listid,
+          listname: displayList.listname
         });
       });
     };
 
     // visually what do you see, does not change masterList or navList
-    this.updateListid = (id) => {
+    this.updateListid = (id, listname) => {
       this.setState({
-        listid: id
+        listid: id,
+        listname: listname
       }, function() { this.makeDisplayData(); });
     };
 
@@ -402,7 +404,7 @@ class App extends React.Component {
           <NewList userid={this.state.userid} addList={this.addList} createDisplayed={this.state.createDisplayed} hideNewList={this.hideNewList}/>
           <NavBar userid={this.state.userid} navList={this.state.navList} updateListid={this.updateListid} listid={this.state.listid} displayNewList={this.displayNewList}/>
           <TodoForm addItem={this.addItem} listid={this.state.listid} userid={this.state.userid}/>
-          <TodoList lock={this.lock} todoList={this.state.displayList} deleteItem={this.deleteItem} updateQuant={this.updateQuant} userid={this.state.userid} />
+          <TodoList todoList={this.state.displayList} listname={this.state.listname} deleteItem={this.deleteItem} updateQuant={this.updateQuant} userid={this.state.userid} />
           <TodoCost todoList={this.state.displayList} deleteList={this.deleteList} listid={this.state.listid} userid={this.state.userid} displayShareList={this.displayShareList}/>
           <ShareList userid={this.state.userid} shareList={this.shareList} shareDisplayed={this.state.shareDisplayed} hideShareList={this.hideShareList} listid={this.state.listid}/>
         </div>

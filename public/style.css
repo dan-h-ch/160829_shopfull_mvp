@@ -86,7 +86,8 @@ thead {
 
 .header-name {
   padding-left: 10px;
-  text-align: left
+  text-align: left;
+  text-decoration: underline;
 }
 
 .item-name {
