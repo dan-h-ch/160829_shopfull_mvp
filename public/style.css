@@ -135,15 +135,16 @@ thead {
 
 .submit-new-list {
   position: fixed;
-  top: 20px;
+  top: 60px;
   height: 80px;
-  width: 300px;
+  width: 240px;
   z-index: 1;
   left: 50%;
-  margin: 0 0 0 -150px;
+  margin: 0 0 0 -120px;
   border-style: solid;
   border-width: 2px;
   background-color: gray;
+  padding: 5px;
 }
 
 .header-container {
@@ -153,8 +154,16 @@ thead {
 }
 
 .header-items {
- padding: 10px; 
+  padding: 10px; 
 }
 
+.top-close {
+  font-size: 8px;
+  text-align: right;
+  text-decoration: underline;
+}
 
+.popup-body {
+  padding: 3px;
+}
 
