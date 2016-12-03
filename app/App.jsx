@@ -37,7 +37,7 @@ class App extends React.Component {
       createDisplayed: 'none',
       shareDisplayed: 'none',
       username: '',
-      login: 'default'
+      login: ''
     };
 
 /////////////////////////////////
