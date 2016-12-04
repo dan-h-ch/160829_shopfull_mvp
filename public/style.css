@@ -117,21 +117,6 @@ thead {
   cursor: pointer;
 }
 
-.delete {
-  font-size: 10px;
-  vertical-align: middle
-}
-
-.final-cost, .final-quant, .delete-list-button, .share-list-button {
-  text-align: center;
-  margin-top: 5px;
-  margin-right: 10px;
-  padding: 2px;
-  color: white;
-  background: black;
-  display: inline;
-}
-
 #selectedList {
   background: gray;
 }
@@ -209,7 +194,7 @@ thead {
   border-color: midnightblue;
 }
 
-.centered-list {
+.centered-list ,.bottom-container {
   width: 300px;
   margin: 0 auto;
 }
@@ -232,6 +217,7 @@ thead {
 .add-todo-form-input:focus {
   background-color: lightblue;
   outline: none;
+  padding-left: 10px;
 }
 
 .add-todo-form-button {
@@ -240,6 +226,8 @@ thead {
   color: white;
   padding: 10px 32px;
   cursor: pointer;
+  outline: none;
+  font-size: 10;
 }
 
 .list-item-container {
@@ -248,30 +236,29 @@ thead {
 }
 
 .list-item-name {
+  transition: all 0.5s ease;
   flex-grow: 1;
   border: none;
-  padding: 10px 5px;
+  padding: 10px 5px 10px 10px;
   text-align: left;
-  background-color: blue;
+  background-color: lightblue;
   margin: 2px;
 }
 
+.list-item-name:hover {
+  padding-left: 20px;
+  font-weight: bold;
+}
+
 .list-item-delete {
+  transition: all 1s ease;
   background-color: gray;
   border: none;
   color: white;
   padding: 10px 5px;
   cursor: pointer;
-  font-size: 12;
+  font-size: 10;
   margin: 2px;
-}
-
-.list-item-delete:hover {
-  background-color: red;
-  border: none;
-  color: white;
-  padding: 10px 5px;
-  cursor: pointer;
 }
 
 .list-item-delete:hover {
@@ -300,4 +287,33 @@ thead {
   display: table-cell;
   vertical-align: middle;
   font-size: 12;
+}
+
+.bottom-container {
+  margin-top: 2px;
+  display: flex;
+  justify-content: space-between;
+  align-content: stretch;
+}
+
+.delete-list-button, .share-list-button {
+  transition: all 1s ease;
+  width: 100%;
+  text-align: center;
+  padding: 2px;
+  color: white;
+  background: lightslategray;
+  padding: 10px 5px;
+}
+
+.delete-list-button:hover, .share-list-button:hover {
+  background: red;
+}
+
+.delete-list-button {
+  margin-right: 2px;
+}
+
+.share-list-button {
+  margin-left: 2px;
 }
