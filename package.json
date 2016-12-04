@@ -34,7 +34,7 @@
   "scripts": {
     "start": "nodemon server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "babelify": "babel app/ --out-dir public/compiled/ --presets es2015,react --source-maps inline",
+    "babelify": "babel app/ --out-dir public/compiled/ --presets es2015,react --source-maps inline --watch",
     "lint": "eslint --ext .jsx ./app",
     "pre-commit-message": "echo 'Linting before letting you comit...' && exit 0"
   },

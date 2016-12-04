@@ -37,7 +37,7 @@ class App extends React.Component {
       createDisplayed: 'none',
       shareDisplayed: 'none',
       username: '',
-      login: ''
+      login: 'default'
     };
 
 /////////////////////////////////
@@ -392,8 +392,7 @@ class App extends React.Component {
     if (this.state.idToken && !this.state.username) {
       return (
         <div>
-          <div>idToken {this.state.idToken}</div>
-          <div>username {this.state.username}</div>
+          <div>Fetching your data...</div>
           <Username userid={this.state.userid} saveUsername={this.saveUsername} error={this.state.error}/>
         </div>
       );
@@ -405,7 +404,6 @@ class App extends React.Component {
       JSON.parse(window.atob(this.state.idToken.split('.')[1])).exp > Date.now() / 1000) {
       return (
         <div>
-          {this.state.login}
           <Header username={this.state.username} logOut={this.logOut}/>
           <NewList userid={this.state.userid} addList={this.addList} createDisplayed={this.state.createDisplayed} hideNewList={this.hideNewList}/>
           <NavBar userid={this.state.userid} navList={this.state.navList} updateListid={this.updateListid} listid={this.state.listid} displayNewList={this.displayNewList}/>
@@ -418,11 +416,12 @@ class App extends React.Component {
     } else {
       return (
         <div className='login-box'>
+          <div className='login-box-header'>Login to Listify</div>
           <div>
-            <div className='login-select' onClick={(e) => this.setState({login: 'phone'})}>
+            <div id={this.state.login === 'default' || this.state.login === 'phone' ? 'selectedLogin' : 'notSelectedLogin'} className='login-select' onClick={(e) => this.setState({login: 'phone'})}>
               Phone Number
             </div>
-            <div className='login-select' onClick={(e) => this.setState({login: 'email'})}>
+            <div id={this.state.login === 'email' ? 'selectedLogin' : 'notSelectedLogin'} className='login-select' onClick={(e) => this.setState({login: 'email'})}>
               Email Address
             </div>
           </div>
