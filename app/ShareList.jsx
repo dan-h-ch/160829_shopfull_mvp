@@ -37,17 +37,16 @@ class ShareList extends React.Component {
     };
     return (
       <div className='submit-new-list' style={style}>
+        <div className='top-close' onClick={(e) => this.hideShareList()}>
+          close
+        </div>
         <div>Share This List</div>
-        <div>props {this.props.shareDisplayed}</div>
         <div>Enter username to share with</div>
         <div>
-          <form className="submitForm" onSubmit={this.handleSubmit.bind(this)}>
-            <input type="text" placeholder="username" value={this.state.shareUsername || ''} onChange={(e) => this.updateShareUsername(e)} />
-            <input type="submit" value="Share!" />
+          <form className="share-list" onSubmit={this.handleSubmit.bind(this)}>
+            <input className="share-list-form-input" type="text" placeholder="username" value={this.state.shareUsername || ''} onChange={(e) => this.updateShareUsername(e)} />
+            <input className="share-list-form-button" type="submit" value="Share!" />
           </form>
-        </div>
-        <div onClick={(e) => this.hideShareList()}>
-          close
         </div>
       </div>
     );

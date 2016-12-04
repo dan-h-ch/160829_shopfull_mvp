@@ -49,9 +49,9 @@ class NewList extends React.Component {
           Create a new list
         </div>
         <div className='popup-body'>
-          <form className="submitForm" onSubmit={this.handleSubmit.bind(this)}>
-            <input type="text" placeholder="List name" value={this.state.submitListName || ''} onChange={(e) => this.updateListName(e)} />
-            <input type="submit" value="Create" />
+          <form className="new-list" onSubmit={this.handleSubmit.bind(this)}>
+            <input className="new-list-form-input" type="text" placeholder="List name" value={this.state.submitListName || ''} onChange={(e) => this.updateListName(e)} />
+            <input className="new-list-form-button" type="submit" value="Create" />
           </form>
         </div>
       </div>

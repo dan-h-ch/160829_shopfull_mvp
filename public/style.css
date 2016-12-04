@@ -97,42 +97,27 @@ thead {
 
 
 .nav-container {
-  display: inline-flex;
-  text-align: center;
+  width: 350px;
+  margin: 0 auto;
 }
 
 .nav-bar {
   display: flex;
-  text-align: center;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .nav-item {
   font-size: 18;
-  flex-grow: 1;
   padding: 3px;
   color: white;
   background: black;
-  margin: 3px;
+  margin: 4px 2px 0 2px;
   cursor: pointer;
 }
 
 #selectedList {
   background: gray;
-}
-
-.submit-new-list {
-  position: fixed;
-  top: 60px;
-  height: 80px;
-  width: 240px;
-  z-index: 1;
-  left: 50%;
-  margin: 0 0 0 -120px;
-  border-style: solid;
-  border-width: 2px;
-  background-color: gray;
-  padding: 5px;
 }
 
 .header-container {
@@ -200,13 +185,13 @@ thead {
 }
 
 .add-todo-container {
-  margin: 2px;
+  margin: 0px;
 }
 
 .add-todo {
   display: flex;
   justify-content: space-between;
-  margin: 2px;
+  margin: 1px;
 }
 
 .add-todo-form-input {
@@ -224,7 +209,7 @@ thead {
   background-color: #4CAF50;
   border: none;
   color: white;
-  padding: 10px 32px;
+  padding: 5px 24px;
   cursor: pointer;
   outline: none;
   font-size: 10;
@@ -242,7 +227,8 @@ thead {
   padding: 10px 5px 10px 10px;
   text-align: left;
   background-color: lightblue;
-  margin: 2px;
+  margin: 0 2px;
+  margin-top: 4px;
 }
 
 .list-item-name:hover {
@@ -258,7 +244,8 @@ thead {
   padding: 10px 5px;
   cursor: pointer;
   font-size: 10;
-  margin: 2px;
+  margin: 0 2px;
+  margin-top: 4px;
 }
 
 .list-item-delete:hover {
@@ -275,6 +262,7 @@ thead {
   background-color: silver;
   padding: 10px 5px;
   margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 .list-header-name {
@@ -290,7 +278,7 @@ thead {
 }
 
 .bottom-container {
-  margin-top: 2px;
+  margin-top: 4px;
   display: flex;
   justify-content: space-between;
   align-content: stretch;
@@ -316,4 +304,45 @@ thead {
 
 .share-list-button {
   margin-left: 2px;
+}
+
+.submit-new-list {
+  position: fixed;
+  top: 60px;
+  height: 80px;
+  width: 240px;
+  z-index: 1;
+  left: 50%;
+  margin: 0 0 0 -120px;
+  border-style: solid;
+  border-width: 4px;
+  background-color: lightgray;
+  padding: 5px;
+}
+
+.new-list, .share-list {
+  display: flex;
+  justify-content: space-between;
+  margin: 1px;
+}
+
+.new-list-form-input, .share-list-form-input {
+  flex-grow: 1;
+  border: none;
+}
+
+.new-list-form-input:focus, .share-list-form-input:focus {
+  background-color: lightblue;
+  outline: none;
+  padding-left: 10px;
+}
+
+.new-list-form-button, .share-list-form-button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 5px 12px;
+  cursor: pointer;
+  outline: none;
+  font-size: 10;
 }
