@@ -52,10 +52,10 @@ class TodoForm extends React.Component {
 
   render() {
     return (
-      <div className="addtodo">
-        <form className="submitForm" onSubmit={this.handleSubmit.bind(this)}>
-          <input type="text" placeholder="whattobuywhattobuy..." value={this.state.submitName || ''} onChange={(e) => this.updateName(e)} />
-          <input type="submit" value="Must Buy!" />
+      <div>
+        <form className="add-todo" onSubmit={this.handleSubmit.bind(this)}>
+          <input className="add-todo-form-input" type="text" placeholder="whattobuywhattobuy..." value={this.state.submitName || ''} onChange={(e) => this.updateName(e)} />
+          <input className="add-todo-form-button" type="submit" value="Add" />
         </form>
       </div>
     );
