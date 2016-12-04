@@ -28,9 +28,9 @@ class Username extends React.Component {
         <div>
           Please select a username (username will be used when sharing list and connecting with other users)
         </div>
-        <form className="submitForm" onSubmit={this.handleSubmit.bind(this)}>
-          <input type="text" placeholder="Username" value={this.state.submitUsername || ''} onChange={(e) => this.updateUsername(e)} />
-          <input type="submit" value="Submit" />
+        <form className="username" onSubmit={this.handleSubmit.bind(this)}>
+          <input className="username-form-input" type="text" placeholder="Username" value={this.state.submitUsername || ''} onChange={(e) => this.updateUsername(e)} />
+          <input className="username-form-button" type="submit" value="Submit" />
         </form>
         <div>
           {this.props.error}

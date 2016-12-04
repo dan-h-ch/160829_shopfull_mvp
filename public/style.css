@@ -346,3 +346,31 @@ thead {
   outline: none;
   font-size: 10;
 }
+
+.username {
+  display: flex;
+  justify-content: space-between;
+  margin: 1px;
+  width: 300px;
+  margin: 0 auto;
+}
+
+.username-form-input {
+  flex-grow: 1;
+  border: none;
+}
+
+.username-form-input:focus {
+  background-color: lightblue;
+  outline: none;
+  padding-left: 10px;
+}
+
+.username-form-button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 5px 12px;
+  cursor: pointer;
+  outline: none;
+  font-size: 10;
