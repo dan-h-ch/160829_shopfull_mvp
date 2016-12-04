@@ -5,11 +5,18 @@ class TodoList extends React.Component {
 
 
   render() {
+    var quantItems = this.props.todoList.length;
+
     return (
       <div className="list-container">
         <div className="centered-list">
-          <div className="header-name">
-            {this.props.listname}
+          <div className="list-header-container">
+            <div className="list-header-name">
+              {this.props.listname}
+            </div>
+            <div className="list-header-quant">
+              ({quantItems} items)
+            </div>
           </div>
           <TodoForm addItem={this.props.addItem} userid={this.props.userid} listid={this.props.listid} />
           <ul>

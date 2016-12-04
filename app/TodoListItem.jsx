@@ -25,8 +25,13 @@ class TodoListItem extends React.Component {
   render() {
     var totalCost = Math.round(this.props.todoListItem.quantity * this.props.todoListItem.cost * 100) / 100;
     return (
-      <li className="item-name" onClick={(e) => this.handleClick(e)}>
-        {this.props.todoListItem.itemname}
+      <li className="list-item-container">
+        <div className="list-item-name">
+          {this.props.todoListItem.itemname}
+        </div>
+        <div className="list-item-delete" onClick={(e) => this.handleClick(e)}>
+          Delete
+        </div>
       </li>
     );
   }
