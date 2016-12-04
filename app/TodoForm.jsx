@@ -10,24 +10,29 @@ class TodoForm extends React.Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault();
-    var time = new Date();
-    var preparedSubmit = {
-      itemname: this.state.submitName,
-      quantity: this.state.submitQuant,
-      listid: this.props.listid,
-      item_create_userid: this.props.userid,
-      cost: this.state.submitCost,
-      created_at: new Date(),
-      updated_at: new Date()
-    };
-    this.props.addItem(preparedSubmit);
-    this.setState({
-      // would be cool to have randomizer for the default values
-      submitName: '',
-      submitQuant: 0,
-      submitCost: 0
-    });
+    if (this.state.submitName === '' || this.state.submitName === undefined) {
+      e.preventDefault();
+      console.log('did not submit');
+    } else {
+      e.preventDefault();
+      var time = new Date();
+      var preparedSubmit = {
+        itemname: this.state.submitName,
+        quantity: this.state.submitQuant,
+        listid: this.props.listid,
+        item_create_userid: this.props.userid,
+        cost: this.state.submitCost,
+        created_at: new Date(),
+        updated_at: new Date()
+      };
+      this.props.addItem(preparedSubmit);
+      this.setState({
+        // would be cool to have randomizer for the default values
+        submitName: '',
+        submitQuant: 0,
+        submitCost: 0
+      });
+    }
   }
 
   updateName(e) {
