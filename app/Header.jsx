@@ -1,7 +1,7 @@
-var Header = ({username, logOut}) => (
+var Header = ({username, logOut, email}) => (
   <div className='header-container'>
     <div className='header-items'>
-    Hi {username}
+    Hi {email}
     </div>
     <div id='top-banner'>
     Listify
@@ -11,34 +11,3 @@ var Header = ({username, logOut}) => (
     </div>
   </div>
 );
-
-
-
-// class Header extends React.Component {
-
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {};
-//   }
-
-//   showLock() {
-//     this.lock.show();
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <div>
-//           Hi {this.props.username}
-//         </div>
-//         <div onClick={this.props.logOut}>
-//           Logout
-//         </div>
-//       </div>
-//     );
-
-//   }
-
-
-// }

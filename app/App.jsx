@@ -11,7 +11,8 @@ class App extends React.Component {
       this.lock.getProfile(this.state.idToken, (err, prof) => {
         this.setState({
           userid: prof.user_id,
-          profile: prof
+          profile: prof,
+          email: prof.email
         }, () => {
           this.fetchLists();
           this.fetchItems();
@@ -348,7 +349,9 @@ class App extends React.Component {
           localStorage.setItem('id_token', idToken);
           this.setState({
             userid: profile.user_id,
-            profile: profile,
+            // // profile is return from auth0 - has some data available
+            // profile: profile,
+            email: profile.email,
             // relies on local storage, triggers render()
             idToken: this.getIdToken()
           }, () => {
@@ -404,7 +407,7 @@ class App extends React.Component {
       JSON.parse(window.atob(this.state.idToken.split('.')[1])).exp > Date.now() / 1000) {
       return (
         <div>
-          <Header username={this.state.username} logOut={this.logOut}/>
+          <Header username={this.state.username} email={this.state.email} logOut={this.logOut}/>
           <NewList userid={this.state.userid} addList={this.addList} createDisplayed={this.state.createDisplayed} hideNewList={this.hideNewList}/>
           <NavBar userid={this.state.userid} navList={this.state.navList} updateListid={this.updateListid} listid={this.state.listid} displayNewList={this.displayNewList}/>
           <TodoList todoList={this.state.displayList} listname={this.state.listname} deleteItem={this.deleteItem} updateQuant={this.updateQuant} userid={this.state.userid} listid={this.state.listid} addItem={this.addItem}/>
