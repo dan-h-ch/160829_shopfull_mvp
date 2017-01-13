@@ -18,8 +18,8 @@ class NavBar extends React.Component {
       <div className="nav-container">
         <ul className="nav-bar">
           {this.props.navList.map((list) => <NavBarItem key={list.listid} navList={list} listid={this.props.listid} updateListid={this.props.updateListid}/>)}
-          <li className="nav-item" onClick={(e) => this.displayNewList()}>
-            <div>New List >></div>
+          <li className="new-list-button" onClick={(e) => this.displayNewList()}>
+            <div>Add</div>
           </li>
         </ul>
       </div>
