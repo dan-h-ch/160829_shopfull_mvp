@@ -93,7 +93,7 @@ module.exports = function(app, express){
   });
 
   app.post('/userlists', function(req, res) {
-    db.knex('users').select('id').where('username', req.body.username)
+    db.knex('users').select('id').where('email_phone', req.body.email_phone)
     .then(function(data) {
       if (data[0] === undefined) {
         res.status(400).send(JSON.stringify({message: `Unable to find ${req.body.username}.`}))

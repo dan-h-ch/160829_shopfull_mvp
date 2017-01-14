@@ -11,12 +11,12 @@ class ShareList extends React.Component {
     var preparedSubmit = {
       listid: this.props.listid,
       // linting error since we are passing directly to db
-      username: this.state.shareUsername
+      email_phone: this.state.share_email_phone
     };
     // console.log(preparedSubmit)
     this.props.shareList(preparedSubmit);
     this.setState({
-      shareUsername: '',
+      share_email_phone: '',
     });
     this.hideShareList();
   }
@@ -27,7 +27,7 @@ class ShareList extends React.Component {
 
   updateShareUsername(e) {
     this.setState({
-      shareUsername: e.target.value
+      share_email_phone: e.target.value
     });
   }
 

@@ -6,17 +6,6 @@ var knex = require('knex') ({
   connection: DATABASE_URL
 });
 
-// var knex = require('knex') ({
-//   client: 'sqlite3',
-//   connection: {
-//     host: '127.0.0.1',
-//     user: 'your_database_user',
-//     password: 'password',
-//     database: 'shopfull',
-//     charset: 'utf8',
-//     filename: path.join(__dirname, '../db/shopfull.sqlite')
-//   }
-// });
 var db = require('bookshelf')(knex);
 
 db.knex.schema.hasTable('users').then(function(exists) {
@@ -24,7 +13,7 @@ db.knex.schema.hasTable('users').then(function(exists) {
     db.knex.schema.createTable('users', function (user) {
       user.string('id').primary();
       user.string('username', 255).unique();
-      user.string('email', 255);
+      user.string('email_phone', 255);
       user.timestamps();
     }).then(function (table) {
       console.log('Created Table', table);

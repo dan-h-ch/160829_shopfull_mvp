@@ -12,16 +12,11 @@ class App extends React.Component {
         this.setState({
           userid: prof.user_id,
           profile: prof,
-          email: prof.email
+          email_phone: prof.email
         }, () => {
           this.fetchLists();
           this.fetchItems();
-          this.fetchUsername();
         });
-        var userData = {};
-        userData.id = prof.user_id;
-        userData.email = prof.email;
-        this.addUser(userData);
       });
     });
   }
@@ -37,7 +32,6 @@ class App extends React.Component {
       userid: '', //temporarily
       createDisplayed: 'none',
       shareDisplayed: 'none',
-      username: '',
       login: 'default'
     };
 
@@ -218,43 +212,45 @@ class App extends React.Component {
 /////   USER RELATED     ///////
 ///////////////////////////////
 
-    this.fetchUsername = () => {
-      // userid is being passed on in URL, ultimately refactor our when auth token is in place
-      var getUrl = `/username/${this.state.userid}`;
-      fetch(getUrl)
-      .then((res) => res.json())
-      .then((data) => {
-        this.setState({
-          username: data.username
-        });
-      });
-    };
+    // this.fetchUsername = () => {
+    //   // userid is being passed on in URL, ultimately refactor our when auth token is in place
+    //   var getUrl = `/username/${this.state.userid}`;
+    //   fetch(getUrl)
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     this.setState({
+    //       username: data.username
+    //     });
+    //   });
+    // };
 
-    this.saveUsername = (userData) => {
-      fetch('/users', {
-        method: 'PUT',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userData)
-      })
-      .then((body) => body.json())
-      .then((res) => {
-        this.setState({
-          username: res.username,
-          error: res.error
-        });
-      })
-      .catch((err) => console.log('err0r', err));
-    };
+    // this.saveUsername = (userData) => {
+    //   fetch('/users', {
+    //     method: 'PUT',
+    //     headers: {
+    //       'Accept': 'application/json',
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(userData)
+    //   })
+    //   .then((body) => body.json())
+    //   .then((res) => {
+    //     this.setState({
+    //       username: res.username,
+    //       error: res.error
+    //     });
+    //   })
+    //   .catch((err) => console.log('err0r', err));
+    // };
 
     this.logOut = () => {
       localStorage.removeItem('id_token');
       this.setState({
         idToken: '',
         userid: '',
-        username: ''
+        masterList: [],
+        navList: [],
+        displayList: []
       });
     };
 
@@ -289,7 +285,7 @@ class App extends React.Component {
     .then((body) => body.json())
     .then((res) => {
       this.setState({
-        username: res.username
+        email_phone: res.email_phone
       });
     })
     .catch((err) => console.log('err0r', err));
@@ -332,12 +328,11 @@ class App extends React.Component {
           }, () => {
             this.fetchLists();
             this.fetchItems();
-            this.fetchUsername();
           });
           // add user to db
           var userData = {};
           userData.id = profile.user_id;
-          userData.email = profile.email;
+          userData.email_phone = profile.email;
           this.addUser(userData);
         }
       });
@@ -351,18 +346,17 @@ class App extends React.Component {
             userid: profile.user_id,
             // // profile is return from auth0 - has some data available
             // profile: profile,
-            email: profile.email,
+            email_phone: profile.email,
             // relies on local storage, triggers render()
             idToken: this.getIdToken()
           }, () => {
             this.fetchLists();
             this.fetchItems();
-            this.fetchUsername();
           });
           // add user to db
           var userData = {};
           userData.id = profile.user_id;
-          userData.email = profile.email;
+          userData.email_phone = profile.email;
           this.addUser(userData);
         }
       });
@@ -391,15 +385,8 @@ class App extends React.Component {
 
 
   render() {
-    // if idtoken & username exist
-    if (this.state.idToken && !this.state.username) {
-      return (
-        <div>
-          <div>Fetching your data...</div>
-          <Username userid={this.state.userid} saveUsername={this.saveUsername} error={this.state.error}/>
-        </div>
-      );
-    } else if (this.state.idToken &&
+    // if idtoken
+    if (this.state.idToken &&
       // ideally you can bring in a library for this if you need to do it a lot
       // expire date on token exists
       JSON.parse(window.atob(this.state.idToken.split('.')[1])).exp !== undefined &&
@@ -407,7 +394,7 @@ class App extends React.Component {
       JSON.parse(window.atob(this.state.idToken.split('.')[1])).exp > Date.now() / 1000) {
       return (
         <div>
-          <Header username={this.state.username} email={this.state.email} logOut={this.logOut}/>
+          <Header email_phone={this.state.email_phone} logOut={this.logOut}/>
           <NewList userid={this.state.userid} addList={this.addList} createDisplayed={this.state.createDisplayed} hideNewList={this.hideNewList}/>
           <NavBar userid={this.state.userid} navList={this.state.navList} updateListid={this.updateListid} listid={this.state.listid} displayNewList={this.displayNewList}/>
           <TodoList todoList={this.state.displayList} listname={this.state.listname} deleteItem={this.deleteItem} updateQuant={this.updateQuant} userid={this.state.userid} listid={this.state.listid} addItem={this.addItem}/>
