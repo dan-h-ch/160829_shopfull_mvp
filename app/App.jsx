@@ -32,7 +32,8 @@ class App extends React.Component {
       userid: '', //temporarily
       createDisplayed: 'none',
       shareDisplayed: 'none',
-      login: 'default'
+      login: 'default',
+      email_phone: ''
     };
 
 /////////////////////////////////
@@ -66,6 +67,7 @@ class App extends React.Component {
 
     this.fetchLists = () => {
       // userid is being passed on in URL, ultimately refactor our when auth token is in place
+      console.log('fetchLists');
       var getUrl = `/lists/${this.state.userid}`;
       fetch(getUrl)
       .then((res) => res.json())
@@ -250,7 +252,8 @@ class App extends React.Component {
         userid: '',
         masterList: [],
         navList: [],
-        displayList: []
+        displayList: [],
+        email_phone: ''
       });
     };
 
@@ -293,6 +296,7 @@ class App extends React.Component {
 
   fetchItems() {
     var getUrl = `/items/${this.state.userid}`;
+    console.log('fetch items')
     fetch(getUrl)
     .then(function(res) {
       return res.json();
@@ -342,6 +346,7 @@ class App extends React.Component {
         if (!err) {
           // set JWT on localstorage
           localStorage.setItem('id_token', idToken);
+          console.log(this.state)
           this.setState({
             userid: profile.user_id,
             // // profile is return from auth0 - has some data available
@@ -349,10 +354,16 @@ class App extends React.Component {
             email_phone: profile.email,
             // relies on local storage, triggers render()
             idToken: this.getIdToken()
-          }, () => {
+          }, function() {
             this.fetchLists();
             this.fetchItems();
-          });
+            this.setState({
+              email_phone: profile.email
+            })
+          })
+          // this.setState({
+          //   email_phone: profile.email
+          // });
           // add user to db
           var userData = {};
           userData.id = profile.user_id;
