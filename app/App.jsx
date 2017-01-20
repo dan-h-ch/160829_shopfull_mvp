@@ -9,14 +9,16 @@ class App extends React.Component {
       idToken: this.getIdToken()
     }, () => {
       this.lock.getProfile(this.state.idToken, (err, prof) => {
-        this.setState({
-          userid: prof.user_id,
-          profile: prof,
-          email_phone: prof.email
-        }, () => {
-          this.fetchLists();
-          this.fetchItems();
-        });
+        if (prof) {
+          this.setState({
+            userid: prof.user_id,
+            profile: prof,
+            email_phone: prof.email
+          }, () => {
+            this.fetchLists();
+            this.fetchItems();
+          });
+        }
       });
     });
   }
@@ -296,7 +298,6 @@ class App extends React.Component {
 
   fetchItems() {
     var getUrl = `/items/${this.state.userid}`;
-    console.log('fetch items')
     fetch(getUrl)
     .then(function(res) {
       return res.json();
@@ -346,7 +347,6 @@ class App extends React.Component {
         if (!err) {
           // set JWT on localstorage
           localStorage.setItem('id_token', idToken);
-          console.log(this.state)
           this.setState({
             userid: profile.user_id,
             // // profile is return from auth0 - has some data available
@@ -357,10 +357,7 @@ class App extends React.Component {
           }, function() {
             this.fetchLists();
             this.fetchItems();
-            this.setState({
-              email_phone: profile.email
-            })
-          })
+          });
           // this.setState({
           //   email_phone: profile.email
           // });

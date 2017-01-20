@@ -6,18 +6,21 @@ class Header extends React.Component {
 
   render() {
     return (
-        <div className='header-container'>
-          <div className='header-items'>
-          Hi {this.props.email_phone}
-          </div>
+        <div>
           <div id='top-banner'>
           Listify
           </div>
-          <div onClick={this.props.logOut} className='header-items'>
-          Logout
+          <div className='header-container'>
+            <div className='header-items'>
+            Hi {this.props.email_phone}
+            </div>
+
+            <div onClick={this.props.logOut} className='header-items'>
+            Logout
+            </div>
           </div>
         </div>
-    )
+    );
   }
 }
 
