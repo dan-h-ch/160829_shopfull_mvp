@@ -40,11 +40,11 @@ class ShareList extends React.Component {
         <div className='top-close' onClick={(e) => this.hideShareList()}>
           close
         </div>
-        <div>Share This List</div>
-        <div>Enter username to share with</div>
+        <div className='share-title'>Share <u>{this.props.listname}</u></div>
+        <div className='share-body'>Enter an email or phone number to share with</div>
         <div>
           <form className="share-list" onSubmit={this.handleSubmit.bind(this)}>
-            <input className="share-list-form-input" type="text" placeholder="username" value={this.state.share_email_phone || ''} onChange={(e) => this.updateShareUsername(e)} />
+            <input className="share-list-form-input" type="text" placeholder="email or phone number" value={this.state.share_email_phone || ''} onChange={(e) => this.updateShareUsername(e)} />
             <input className="share-list-form-button" type="submit" value="Share!" />
           </form>
         </div>

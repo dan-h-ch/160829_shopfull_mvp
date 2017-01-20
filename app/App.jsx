@@ -407,7 +407,7 @@ class App extends React.Component {
           <NavBar userid={this.state.userid} navList={this.state.navList} updateListid={this.updateListid} listid={this.state.listid} displayNewList={this.displayNewList}/>
           <TodoList todoList={this.state.displayList} listname={this.state.listname} deleteItem={this.deleteItem} updateQuant={this.updateQuant} userid={this.state.userid} listid={this.state.listid} addItem={this.addItem}/>
           <Bottom todoList={this.state.displayList} deleteList={this.deleteList} listid={this.state.listid} userid={this.state.userid} displayShareList={this.displayShareList}/>
-          <ShareList userid={this.state.userid} shareList={this.shareList} shareDisplayed={this.state.shareDisplayed} hideShareList={this.hideShareList} listid={this.state.listid}/>
+          <ShareList userid={this.state.userid} shareList={this.shareList} shareDisplayed={this.state.shareDisplayed} hideShareList={this.hideShareList} listid={this.state.listid} listname={this.state.listname}/>
         </div>
       );
     } else {

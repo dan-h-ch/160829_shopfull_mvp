@@ -45,10 +45,11 @@ class NewList extends React.Component {
         <div className='top-close' onClick={(e) => this.hideNewList()}>
           close
         </div>
-        <div className='popup-body'>
-          Create a new list
+        <div className='new-list-title'>
+          Create New list
         </div>
-        <div className='popup-body'>
+        <div className='new-list-body'>Give your new list a name.</div>
+        <div>
           <form className="new-list" onSubmit={this.handleSubmit.bind(this)}>
             <input className="new-list-form-input" type="text" placeholder="List name" value={this.state.submitListName || ''} onChange={(e) => this.updateListName(e)} />
             <input className="new-list-form-button" type="submit" value="Create" />
