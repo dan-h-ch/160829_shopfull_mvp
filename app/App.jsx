@@ -413,7 +413,8 @@ class App extends React.Component {
     } else {
       return (
         <div className='login-box'>
-          <div className='login-box-header'>Login to Listify</div>
+          <div className='login-box-header'>Let's Listify!</div>
+          <div className='login-box-body'>Select Login Option</div>
           <div>
             <div id={this.state.login === 'default' || this.state.login === 'phone' ? 'selectedLogin' : 'notSelectedLogin'} className='login-select' onClick={(e) => this.setState({login: 'phone'})}>
               Phone Number
@@ -423,7 +424,7 @@ class App extends React.Component {
             </div>
           </div>
           <div className='login-click' onClick={(e) => this.showLock()}>
-            Login
+            Let's Go! >>
           </div>
         </div>
       );
