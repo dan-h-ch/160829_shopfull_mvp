@@ -13,7 +13,7 @@ class App extends React.Component {
           this.setState({
             userid: prof.user_id,
             profile: prof,
-            email_phone: prof.email
+            email_phone: prof.email || prof.phone_number.slice(1),
           }, () => {
             this.fetchLists();
             this.fetchItems();
@@ -69,19 +69,20 @@ class App extends React.Component {
 
     this.fetchLists = () => {
       // userid is being passed on in URL, ultimately refactor our when auth token is in place
-      console.log('fetchLists');
       var getUrl = `/lists/${this.state.userid}`;
       fetch(getUrl)
       .then((res) => res.json())
       .then((data) => {
-        var displayList = data.reduce((memo, val) => {
-          return val.listid < memo.listid ? val : memo;
-        });
-        this.setState({
-          navList: data,
-          listid: displayList.listid,
-          listname: displayList.listname
-        });
+        if (data.length > 0) {
+          var displayList = data.reduce((memo, val) => {
+            return val.listid < memo.listid ? val : memo;          
+          });
+          this.setState({
+            navList: data,
+            listid: displayList.listid,
+            listname: displayList.listname
+          });
+        }
       });
     };
 
@@ -105,7 +106,6 @@ class App extends React.Component {
       })
       .then((data) => data.json())
       .then((data) => {
-        console.log(data);
         var activeList = data.reduce((memo, val) => {
           return Math.max(val.listid, memo);
         }, -Infinity);
@@ -327,7 +327,7 @@ class App extends React.Component {
           localStorage.setItem('id_token', idToken);
           this.setState({
             userid: profile.user_id,
-            profile: profile,
+            email_phone: profile.phone_number.slice(1),
             // relies on local storage, triggers render()
             idToken: this.getIdToken()
           }, () => {
@@ -337,7 +337,7 @@ class App extends React.Component {
           // add user to db
           var userData = {};
           userData.id = profile.user_id;
-          userData.email_phone = profile.email;
+          userData.email_phone = profile.phone_number.slice(1);
           this.addUser(userData);
         }
       });

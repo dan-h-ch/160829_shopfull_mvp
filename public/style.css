@@ -195,6 +195,10 @@ thead {
   color: white;
 }
 
+.login-click:hover {
+  cursor: pointer
+}
+
 #selectedLogin {
   border-color: midnightblue;
   border-width: 5px;
